@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.0.0/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<title>Engineering Landing</title>
+<link rel="stylesheet" href="./css/aboutus.css">
+</head>
+<body style="background: #0a0a0a;">
+
+<style>
+   #toggleInfo,
+#toggleInfo2,
+#toggleInfo3,
+#toggleInfo4,
+#toggleInfowoman,
+#toggleInfowoman2,
+#toggleInfowoman3 {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(-10px);
+
+    transition:
+        max-height .45s cubic-bezier(.22,1,.36,1),
+        opacity .3s ease,
+        transform .4s ease,
+        padding .35s ease;
+}
+
+#toggleInfo.show,
+#toggleInfo2.show,
+#toggleInfo3.show,
+#toggleInfo4.show,
+#toggleInfowoman.show,
+#toggleInfowoman2.show,
+#toggleInfowoman3.show {
+    max-height: 250px;
+    opacity: 1;
+    transform: translateY(0);
+    padding: 1rem 2rem;
+}
+</style>
+
+<nav class="navbar" id="navbar">
+        <div class="navbar-overlay"></div>
+        <div class="container nav-container">
+            
+            <!-- Logo Section -->
+            <div class="nav-logo" style="padding: 0 1rem !important;">
+                <div class="logo-wrapper">
+                    <div style="position: relative;top: .3rem;">
+                        <img src="images/Asset 1.png" style="object-fit: cover;width: 50px;height: 70px;" alt="">
+                        
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-fa">کافه معدن</span>
+                        <span class="logo-en">CAFE MADAN</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="index.html" style="font-size: 1.2rem;" class="nav-link">
+                        <span class="link-text">خانه</span>
+                        <span class="link-underline"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="khadamat.html" style="font-size: 1.2rem;" class="nav-link">
+                        <span class="link-text">خدمات</span>
+                        <span class="link-underline"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="articels.html" style="font-size: 1.2rem;" class="nav-link">
+                        <span class="link-text">مقالات</span>
+                        <span class="link-underline"></span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="#about" style="font-size: 1.2rem;" class="nav-link active">
+                        <span class="link-text">درباره ما</span>
+                        <span class="link-underline"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="call.html" style="font-size: 1.2rem;" class="nav-link">
+                        <span class="link-text">تماس با ما</span>
+                        <span class="link-underline"></span>
+                    </a>
+                </li>
+
+                 <li class="nav-item">
+                    <a href="storyus.html" style="font-size: 1.2rem;" class="nav-link">
+                        <span class="link-text">داستان ما</span>
+                        <span class="link-underline"></span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Action Buttons -->
+            <div class="nav-actions" style="padding: 0 1rem !important;">
+                <a href="#" style="font-size: 1.1rem;" class="btn-ecosystem">
+                    <span class="btn-text">دریافت مشاوره تخصصی</span>
+                    <span class="btn-icon">
+                        <i class="fas fa-arrow-left"></i>
+                    </span>
+                    <span class="btn-shine"></span>
+                </a>
+                
+                
+                <button class="hamburger" id="hamburger" aria-label="منو">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+<section class="hero" style="margin-top:8rem;background: #0a0a0a;
+    height:auto;">
+
+    <div class="grid"></div>
+
+    <div class="content">
+
+       <h1 class="hero-title">
+
+    <span class="line line1 yellow">
+        کافه معدن
+    </span>
+
+    <span class="line line2">
+        از دل زمین بنیان آینده را می‌سازیم
+    </span>
+
+
+</h1>
+
+
+    </div>
+
+    <div class="hero-image">
+        <img src="images/sp2.jpg" alt="">
+    </div>
+
+    <button style="position: relative;right: 107rem;font-family:'Vazirmatn',sans-serif;">کار ما را بررسی کنید</button>
+
+</section>
+
+
+  <!-- Background Image with Overlay -->
+    <!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>درباره ما - کافه معدن</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Background Image with Overlay -->
+    <div class="aboutus" style="background-color: #F1f1f1;">
+        <div class="bg-image"></div>
+    <div class="bg-overlay "></div>
+    <div class="topo-pattern"></div>
+     <div class="container"></div>
+
+    <div class="container">
+
+        <!-- Top Section: Text & Timeline -->
+        <section class="about-top">
+
+            <!-- Text Content (Right) -->
+            <div class="about-text-content">
+                <span class="subtitle" style="color: #F3B300 !important;">داستان ما</span>
+                <h1 class="title">مسیر نوآوری<br>و پیشرفت</h1>
+                <div class="description-box">
+                    <p id="story-text">
+                        داستان رشد مداوم ما از سال 2019 آغاز شد. با افتتاح و شروع فعالیت، تولید اولین محصول در معدنی‌ها، تا گسترش بازار، بهینه‌سازی فرآیندها و بهره‌برداری کامل از ظرفیت‌ها، همواره در مسیر نوآوری و پیشرفت گام برداشته‌ایم.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Timeline Content (Left) -->
+            <div class="about-timeline">
+                 <div class="smart-pattern">
+        <div class="diagonal-lines"></div>
+        <div class="glowing-dots">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+        <div class="mining-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+    </div>
+                <a href="#" class="timeline-link">
+                
+                <div class="timeline-item item-1">
+                    <div class="timeline-card">
+                        <span class="card-text">افتتاح و شروع فعالیت</span>
+                        <span class="card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+                                <line x1="4" y1="22" x2="4" y2="15"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="timeline-dash"></div>
+                    <div class="timeline-node"></div>
+                    <span class="timeline-year">1396</span>
+                </div>
+                </a>
+                <a href="#" class="timeline-link">
+
+                <div class="timeline-item item-2">
+                    <div class="timeline-card">
+                        <span class="card-text">تولید اولین محصول</span>
+                        <span class="card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+                                <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="timeline-dash"></div>
+                    <div class="timeline-node"></div>
+                    <span class="timeline-year">1397</span>
+                </div>
+                </a>
+                <a href="#" class="timeline-link">
+
+                <div class="timeline-item item-3">
+                    <div class="timeline-card">
+                        <span class="card-text">گسترش بازار</span>
+                        <span class="card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <circle cx="12" cy="12" r="6"/>
+                                <circle cx="12" cy="12" r="2"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="timeline-dash"></div>
+                    <div class="timeline-node"></div>
+                    <span class="timeline-year">1398</span>
+                </div>
+                </a>
+                <a href="#" class="timeline-link">
+
+                <div class="timeline-item item-4">
+                    <div class="timeline-card">
+                        <span class="card-text">تحقیق و توسعه</span>
+                        <span class="card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"/>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="timeline-dash"></div>
+                    <div class="timeline-node"></div>
+                    <span class="timeline-year">1399</span>
+                </div>
+                </a>
+                <a href="#" class="timeline-link">
+
+                <div class="timeline-item item-5">
+                    <div class="timeline-card">
+                        <span class="card-text">توسعه صادرات</span>
+                        <span class="card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="2" y1="12" x2="22" y2="12"/>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="timeline-dash"></div>
+                    <div class="timeline-node"></div>
+                    <span class="timeline-year">1400</span>
+                </div>
+                </a>
+                <a href="#" class="timeline-link">
+
+                <div class="timeline-item item-6">
+                    <div class="timeline-card">
+                        <span class="card-text">گسترش کارخانه</span>
+                        <span class="card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 20h20"/>
+                                <path d="M5 20V8l7-5 7 5v12"/>
+                                <path d="M9 20v-4h6v4"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="timeline-dash"></div>
+                    <div class="timeline-node"></div>
+                    <span class="timeline-year">1401</span>
+                </div>
+                </a>
+                <a href="#" class="timeline-link">
+
+                <div class="timeline-item item-7">
+                    <div class="timeline-card">
+                        <span class="card-text">بهینه‌سازی</span>
+                        <span class="card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="3"/>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="timeline-dash"></div>
+                    <div class="timeline-node"></div>
+                    <span class="timeline-year">1402</span>
+                </div>
+                </a>
+                <a href="#" class="timeline-link">
+
+                <a href="#" class="timeline-link">
+    <div class="timeline-item item-8">
+        <div class="timeline-card">
+            <span class="card-text">بهره‌برداری کامل</span>
+            <span class="card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+            </span>
+        </div>
+        <div class="timeline-dash"></div>
+        <div class="timeline-node">
+            <span class="continue-line"></span>
+            <span class="continue-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+        </div>
+        <span class="timeline-year">1403</span>
+    </div>
+</a>
+            </div>
+
+        </section>
+
+        <!-- Bottom Section: Stats Cards -->
+        <section class="about-stats">
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                        <line x1="12" y1="22.08" x2="12" y2="12"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-num" data-target="126">0</span>
+                    <span class="stat-label">پروژه‌های تکمیل شده</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-num" data-target="38">0</span>
+                    <span class="stat-label">همکاران متخصص</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-num" data-target="4200">0</span>
+                    <span class="plus-sign">+</span>
+                    <span class="stat-label">مشتریان و شرکای تجاری</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="2" y1="12" x2="22" y2="12"/>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-num" data-target="12000">0</span>
+                    <span class="plus-sign">+</span>
+                    <span class="stat-label">تکنولوژی‌های بکار گرفته شده</span>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+    </div>
+
+</body>
+</html>
+
+
+<section class="calanaci2" style="background-color: black;display: flex;align-items: center;justify-content: center;">
+     <div class="cf-profile-container">
+        <div class="cf-profile-top">
+            
+            <div class="cf-content-section cf-js-animate">
+                <div class="cf-pre-title">بنیان‌گذار کافه معدن</div>
+                <h1 class="cf-main-title">مهندس حسن <span class="cf-highlight">کلانکی</span></h1>
+                <p class="cf-description">
+                    بیش از سه دهه تجربه در صنعت معدن و مشاوره تخصصی در اکتشاف، استخراج، فرآوری و بازرگانی مواد معدنی
+                </p>
+
+                <ul class="cf-features-list">
+                    <li class="toggle-info" id="togglebtn">
+                        <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                        <span style="font-size: 1rem;">فارغ‌التحصیل سال ۱۳۶۷ مهندسی معدن دانشگاه فنی دانشگاه تهران</span>
+                    </li>
+                    <div style="background: transparent;height: 6rem;align-items: center;padding: 1rem 0;padding-right: 2rem; border-radius: 1rem;border-right: 2px solid #d4a24c; border-bottom: 2px solid #d4a24c;" id="toggleInfo">
+                            <p>فارغ‌التحصیل سال ۱۳۶۷ رشته مهندسی معدن از دانشکده فنی دانشگاه تهران با رتبه عالی</p>
+                    </div>
+                    <li class="toggle-info" id="togglebtn2">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                        <span style="font-size: 1rem;">+۳۵ سال سابقه در اکتشاف، استخراج و فرآوری معادن سنگ‌آهن، تزئینی و فلزی (آهن و مس)</span>
+                    </li>
+                    <div style="background: transparent;height: 6rem;align-items: center;padding: 1rem 0;padding-right: 2rem; border-radius: 1rem;border-right: 2px solid #F3B300; border-bottom: 2px solid #F3B300;" id="toggleInfo2">
+                            <p>بیش از ۳۵ سال تجربه عملی در اکتشاف، استخراج روباز و زیرزمینی، فرآوری و بهره‌برداری از معادن سنگ‌آهن، مس و سنگ‌های تزئینی</p>
+                    </div>
+                    <li class="toggle-info" id="togglebtn3">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                        <span style="font-size: 1rem;">مشاور تخصصی راه‌اندازی معادن و بازرگانی داخلی و خارجی مواد معدنی</span>
+                    </li>
+                    <div style="background: transparent;height: 6rem;align-items: center;padding: 1rem 0;padding-right: 2rem; border-radius: 1rem;border-right: 2px solid #F3B300; border-bottom: 2px solid #F3B300;" id="toggleInfo3">
+                            <p>مشاوره تخصصی به بیش از ۴۰ معدن فعال در زمینه طراحی، راه‌اندازی، بهینه‌سازی و بازرگانی مواد معدنی در داخل و خارج از کشور</p>
+                    </div>
+                    <li class="toggle-info" id="togglebtn4">
+                        <svg viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 13L2 9Z"/></svg>
+                        <span style="font-size: 1rem;">مدرک تخصصی گوهرشناسی الماس و رنگی</span>
+                    </li>
+                    <div style="background: transparent;height: 6rem;align-items: center;padding: 1rem 0;padding-right: 2rem; border-radius: 1rem;border-right: 2px solid #F3B300; border-bottom: 2px solid #F3B300;margin-bottom: 3rem;" id="toggleInfo4">
+                            <p>دارنده مدرک تخصصی گوهرشناسی الماس و سنگ‌های قیمتی رنگی از معتبرترین مراکز بین‌المللی</p>
+                    </div>
+                </ul>
+            </div>
+
+            <div class="cf-image-section cf-js-animate">
+                <div class="cf-image-outline"></div>
+                <div class="cf-image-bg">
+                    <img src="images/cofounder.png" alt="مهندس حسن کلانکی">
+                </div>
+                
+                <div class="cf-dark-badge">
+                    <div class="cf-signature">H. Kalanki</div>
+                    <div class="cf-badge-name">حسن کلانکی</div>
+                    <div class="cf-badge-role">بنیان‌گذار کافه معدن</div>
+                    <hr class="cf-badge-divider">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="cf-stats-section cf-js-animate">
+            <div class="cf-stat-item">
+                <svg class="cf-stat-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <div class="cf-stat-info">
+                    <span class="cf-stat-number" data-target="35">۰</span>
+                    <span class="cf-stat-label">سال تجربه</span>
+                </div>
+            </div>
+
+            <div class="cf-stat-item">
+                <svg class="cf-stat-icon" viewBox="0 0 24 24"><path d="M2 22h20"/><path d="M12 2v7"/><path d="M5 22V12a7 7 0 0 1 14 0v10"/></svg>
+                <div class="cf-stat-info">
+                    <span class="cf-stat-number" data-target="420">۰</span>
+                    <span class="cf-stat-label">پروژه موفق</span>
+                </div>
+            </div>
+
+            <div class="cf-stat-item">
+                <svg class="cf-stat-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="12" y2="17"/></svg>
+                <div class="cf-stat-info">
+                    <span class="cf-stat-number" data-target="89">۰</span>
+                    <span class="cf-stat-label">مقالات و پژوهش</span>
+                </div>
+            </div>
+
+            <div class="cf-stat-item">
+                <svg class="cf-stat-icon" viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 13L2 9Z"/></svg>
+                <div class="cf-stat-info">
+                    <span class="cf-stat-number" data-target="2">۰</span>
+                    <span class="cf-stat-label">مدرک تخصصی</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+
+<section class="calanacidouther" style="background: #F1f1f1;display: flex;align-items: center;justify-content: center;">
+ <div class="ceo-profile-container">
+        <div class="ceo-profile-top">
+            
+            <div class="ceo-content-section ceo-js-animate">
+                <div class="ceo-pre-title">مدیرعامل و عضو هیئت مدیره</div>
+                <h1 class="ceo-main-title">خانم مهندس <span class="ceo-highlight">کلانکی</span></h1>
+                <p class="ceo-description">
+                    راهبری استراتژیک اکوسیستم نوآوری کافه معدن و هدایت پروژه‌های کلان در راستای توسعه پایدار صنایع معدنی کشور.
+                </p>
+
+                <ul class="ceo-features-list">
+                    <li id="togglebtnwoman">
+                        <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                        <span style="font-size: 1rem;">مدیریت اجرایی و توسعه راهکارهای نوین در زنجیره ارزش صنایع معدنی</span>
+                    </li>
+                    <div class="toggle-info" style="color: #0a0a0a; background: transparent;height: 6rem;align-items: center;padding: 1rem 0;padding-right: 2rem; border-radius: 1rem;border-right: 2px solid #F3B300; border-bottom: 2px solid #F3B300;" id="toggleInfowoman">
+                            <p>دارنده مدرک تخصصی گوهرشناسی الماس و سنگ‌های قیمتی رنگی از معتبرترین مراکز بین‌المللی</p>
+                    </div>
+                    <li id="togglebtnwoman2">
+                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <span style="font-size: 1rem;">پیاده‌سازی ساختارهای هوشمند هویت سازمانی و پلتفرم‌های تعاملی B2B</span>
+                    </li>
+                    <div class="toggle-info" style="color: #0a0a0a; background: transparent;height: 6rem;align-items: center;padding: 1rem 0;padding-right: 2rem; border-radius: 1rem;border-right: 2px solid #F3B300; border-bottom: 2px solid #F3B300;" id="toggleInfowoman2">
+                            <p>دارنده مدرک تخصصی گوهرشناسی الماس و سنگ‌های قیمتی رنگی از معتبرترین مراکز بین‌المللی</p>
+                    </div>
+                    <li  id="togglebtnwoman3">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        <span style="font-size: 1rem;">توسعه ارتباطات استراتژیک با ارگان‌ها و هلدینگ‌های بزرگ سرمایه‌گذاری</span>
+                    </li>
+                    <div class="toggle-info" style="color: #0a0a0a; background: transparent;height: 6rem;align-items: center;padding: 1rem 0;padding-right: 2rem; border-radius: 1rem;border-right: 2px solid #F3B300; border-bottom: 2px solid #F3B300;margin-bottom: 3rem;" id="toggleInfowoman3">
+                            <p>دارنده مدرک تخصصی گوهرشناسی الماس و سنگ‌های قیمتی رنگی از معتبرترین مراکز بین‌المللی</p>
+                    </div>
+                </ul>
+            </div>
+
+            <div class="ceo-image-section ceo-js-animate">
+                <div class="ceo-image-outline"></div>
+                <div class="ceo-image-bg">
+                    <img src="images/5915844879743389779.jpg" alt="خانم مهندس کلانکی">
+                </div>
+                
+                <div class="ceo-light-badge">
+                    <div class="ceo-signature">H. Kalanki</div>
+                    <div class="ceo-badge-name">خانم مهندس کلانکی</div>
+                    <div class="ceo-badge-role">مدیرعامل کافه معدن</div>
+                    <hr class="ceo-badge-divider">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="ceo-stats-section ceo-js-animate">
+            <div class="ceo-stat-item">
+                <svg class="ceo-stat-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <div class="ceo-stat-info">
+                    <span style="color: #0a0a0a !important;" class="ceo-stat-number" data-target="25">۰</span>
+                    <span class="ceo-stat-label">سال سابقه مدیریتی</span>
+                </div>
+            </div>
+
+            <div class="ceo-stat-item">
+                <svg class="ceo-stat-icon" viewBox="0 0 24 24"><path d="M2 22h20"/><path d="M12 2v7"/><path d="M5 22V12a7 7 0 0 1 14 0v10"/></svg>
+                <div class="ceo-stat-info">
+                    <span class="ceo-stat-number" data-target="126">۰</span>
+                    <span class="ceo-stat-label">پروژه فعال</span>
+                </div>
+            </div>
+
+            <div class="ceo-stat-item">
+                <svg class="ceo-stat-icon" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <div class="ceo-stat-info">
+                    <span class="ceo-stat-number" data-target="38">۰</span>
+                    <span class="ceo-stat-label">شریک تجاری</span>
+                </div>
+            </div>
+
+            <div class="ceo-stat-item">
+                <svg class="ceo-stat-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="12" y2="17"/></svg>
+                <div class="ceo-stat-info">
+                    <span class="ceo-stat-number" data-target="4200">۰</span>
+                    <span class="ceo-stat-label">دانشجویان و فراگیران</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+
+
+<section class="eco2" style="background: black !important;">
+      <div class="eco2-logo-wrap">
+        <div class="eco2-logo-box">
+            <span class="eco2-logo-txt">CAFE MADAN</span>
+        </div>
+    </div>
+
+    <div class="eco2-root">
+        
+        <!-- عنوان اصلی -->
+        <div class="eco2-header">
+            <div class="eco2-header-line">
+                <span class="eco2-line"></span>
+                <span class="eco2-diamond">◇</span>
+                <span class="eco2-line"></span>
+            </div>
+            <p class="eco2-header-txt">چهار بخش تخصصی، یک هدف مشترک</p>
+            <h1 class="eco2-heading" style="margin-right: 3rem !important;">
+                <span class="eco2-heading-w">اکوسیستم</span>
+                <span class="eco2-heading-g">کافه معدن</span>
+            </h1>
+            <p class="eco2-desc">
+                کافه معدن یک پلتفرم جامع و تخصصی در صنعت معدن است که با چهار بخش اصلی، از ایده تا توسعه و برندینگ در کنار فعالان این حوزه قرار می‌گیرد.
+            </p>
+        </div>
+
+        <!-- کارت‌ها -->
+        <div class="eco2-grid">
+            
+            <!-- کارت 1 -->
+            <div class="eco2-card eco2-js-anim">
+                <div class="eco2-icon-ring">
+                  <img src="images/لوگوی-معدن-داد.webp" style="width: 10rem;
+                  height: 5rem;border-radius: 1rem;" alt="">
+                </div>
+                <h3 class="eco2-card-ttl">معدن داد</h3>
+                <p class="eco2-card-sub">خدمات حقوقی تخصصی در معدن</p>
+                <div class="eco2-sep"></div>
+                <ul class="eco2-list">
+                    <li>قراردادهای عمومی و تخصصی</li>
+                    <li>قراردادهای سرمایه‌گذاری</li>
+                    <li>لیزینگ ماشین‌آلات معدنی</li>
+                    <li>خدمات امنیت معادن</li>
+                    <li>اخذ مجوزهای لازم</li>
+                    <li>خدمات داوری</li>
+                    <li>همراهی وکیل متخصص</li>
+                </ul>
+                <div class="eco2-card-ft">
+                    <span class="eco2-num">01</span>
+                    <span class="eco2-link">مشاهده جزئیات ←</span>
+                </div>
+            </div>
+
+            <!-- کارت 2 -->
+            <div class="eco2-card eco2-js-anim">
+                <div class="eco2-icon-ring">
+                    <img src="images/لوگوی-معدن-مشاور.webp" style="width: 10rem;
+                  height: 5rem;border-radius: 1rem;" alt="">
+                </div>
+                <h3 class="eco2-card-ttl">معدن مشاور</h3>
+                <p class="eco2-card-sub">مشاوره تخصصی و راهبری پروژه‌ها</p>
+                <div class="eco2-sep"></div>
+                <ul class="eco2-list">
+                    <li>مشاوره از اکتشاف تا فروش</li>
+                    <li>ارزیابی فنی و اقتصادی</li>
+                    <li>مشاوره سرمایه‌گذاری</li>
+                    <li>طراحی مسیر رشد معادن</li>
+                    <li>کاهش ریسک و افزایش بهره‌وری</li>
+                </ul>
+                <div class="eco2-card-ft" style="position: relative; top: 4.4rem !important;">
+                    <span class="eco2-num">02</span>
+                    <span class="eco2-link">مشاهده جزئیات ←</span>
+                </div>
+            </div>
+
+            <!-- کارت 3 -->
+            <div class="eco2-card eco2-js-anim">
+                <div class="eco2-icon-ring">
+                    <img src="images/لوگوی-معدن-آکادمی.webp" style="width: 10rem;
+                  height: 5rem;border-radius: 1rem;" alt="">
+                </div>
+                <h3 class="eco2-card-ttl">معدن آکادمی</h3>
+                <p class="eco2-card-sub">مرکز آموزش‌های تخصصی</p>
+                <div class="eco2-sep"></div>
+                <ul class="eco2-list">
+                    <li>دوره‌های مهارت‌محور معدن</li>
+                    <li>آموزش بازاریابی و فروش</li>
+                    <li>اصول مذاکره حرفه‌ای</li>
+                    <li>تربیت مدیران و کارشناسان</li>
+                    <li>همکاری با دانشگاه تهران</li>
+                    <li>ارائه گواهینامه معتبر</li>
+                </ul>
+                <div class="eco2-card-ft" style="position: relative;top: 2.1rem !important;">
+                    <span class="eco2-num">03</span>
+                    <span class="eco2-link">مشاهده جزئیات ←</span>
+                </div>
+            </div>
+
+            <!-- کارت 4 -->
+            <div class="eco2-card eco2-js-anim">
+                <div class="eco2-icon-ring">
+                    <img src="images/لوگوی-معدن-ادز.webp" style="width: 10rem;
+                  height: 5rem;border-radius: 1rem;" alt="">
+                </div>
+                <h3 class="eco2-card-ttl">معدن ادز</h3>
+                <p class="eco2-card-sub">تبلیغات و برندینگ تخصصی</p>
+                <div class="eco2-sep"></div>
+                <ul class="eco2-list">
+                    <li>تولید فیلم‌های تبلیغاتی</li>
+                    <li>عکاسی حرفه‌ای از معادن</li>
+                    <li>طراحی و مدیریت وب‌سایت</li>
+                    <li>تولید محتوای شبکه‌های اجتماعی</li>
+                    <li>برندسازی و هویت بصری</li>
+                    <li>اجرای کمپین‌های تبلیغاتی</li>
+                </ul>
+                <div class="eco2-card-ft" style="position: relative;top: 2.1rem !important;">
+                    <span class="eco2-num">04</span>
+                    <span class="eco2-link">مشاهده جزئیات ←</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ویژگی‌ها -->
+        <div class="eco2-features eco2-js-anim">
+            <div class="eco2-feat">
+                <svg viewBox="0 0 24 24">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                <span style="font-size: 1.4rem;">تخصص در هر حوزه</span>
+            </div>
+            <div class="eco2-feat">
+                <svg viewBox="0 0 24 24">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                </svg>
+                <span style="font-size: 1.4rem;">تیم حرفه‌ای</span>
+            </div>
+            <div class="eco2-feat">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="3 17 9 11 13 15 21 7"></polyline>
+    <polyline points="14 7 21 7 21 14"></polyline>
+</svg>
+                <span style="font-size: 1.4rem;">همراهی در مسیر رشد</span>
+            </div>
+            <div class="eco2-feat">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="8" r="7"/>
+                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+                </svg>
+                <span style="font-size: 1.4rem;">کیفیت و نتیجه‌محوری</span>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+<section class="partners" style="background: #f1f1f1;">
+    <div class="partners-container">
+
+        <h2 class="partners-title">همکاران ما</h2>
+
+        <div class="partners-grid">
+
+            <a href="#" class="partner-card">
+                <img src="images/partner1-150x150.webp" alt="">
+            </a>
+
+            <a href="#" class="partner-card">
+                <img src="images/partner2-150x150.webp" alt="">
+            </a>
+
+            <a href="#" class="partner-card">
+                <img src="images/partner3-150x150.webp" alt="">
+            </a>
+
+            <a href="#" class="partner-card">
+                <img src="images/partner4-150x150.webp" alt="">
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+       <div style="height: 6rem; background: #0a0a0a;"></div>
+
+    <footer class="site-footer" style="position: relative;bottom: 3rem;">
+        
+
+        <div class="footer-top-pattern">
+            <svg viewBox="0 0 1440 650" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,40 C300,160 400,-60 1440,90" fill="none" stroke="rgba(201,168,76,0.32)" stroke-width="1.5"/>
+                <path d="M0,60 C310,180 410,-40 1440,110" fill="none" stroke="rgba(201,168,76,0.22)" stroke-width="1.2"/>
+                <path d="M0,80 C320,200 420,-20 1440,130" fill="none" stroke="rgba(201,168,76,0.16)" stroke-width="1"/>
+                <path d="M0,100 C330,220 430,0 1440,150" fill="none" stroke="rgba(201,168,76,0.11)" stroke-width="1"/>
+                <path d="M0,120 C340,240 440,20 1440,170" fill="none" stroke="rgba(201,168,76,0.07)" stroke-width="1"/>
+                
+                <path d="M0,220 C400,30 600,330 1440,180" fill="none" stroke="rgba(201,168,76,0.28)" stroke-width="1.5"/>
+                <path d="M0,245 C410,55 610,355 1440,205" fill="none" stroke="rgba(201,168,76,0.20)" stroke-width="1.2"/>
+                <path d="M0,270 C420,80 620,380 1440,230" fill="none" stroke="rgba(201,168,76,0.14)" stroke-width="1"/>
+                <path d="M0,295 C430,105 630,405 1440,255" fill="none" stroke="rgba(201,168,76,0.09)" stroke-width="1"/>
+                <path d="M0,320 C440,130 640,430 1440,280" fill="none" stroke="rgba(201,168,76,0.06)" stroke-width="1"/>
+
+                <path d="M0,420 C500,580 800,130 1440,380" fill="none" stroke="rgba(201,168,76,0.25)" stroke-width="1.5"/>
+                <path d="M0,445 C510,605 810,155 1440,405" fill="none" stroke="rgba(201,168,76,0.18)" stroke-width="1.2"/>
+                <path d="M0,470 C520,630 820,180 1440,430" fill="none" stroke="rgba(201,168,76,0.12)" stroke-width="1"/>
+                <path d="M0,495 C530,655 830,205 1440,455" fill="none" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+                <path d="M0,520 C540,675 840,230 1440,480" fill="none" stroke="rgba(201,168,76,0.05)" stroke-width="1"/>
+            </svg>
+        </div>
+
+        <div class="footer-container">
+            <div class="footer-main">
+                
+                <div class="footer-col footer-brand">
+                    <div class="footer-logo">
+                        <div class="footer-logo">
+                            <img src="images/Asset 1.png" alt="کافه معدن - Cafe Madan">
+                        </div>
+                    </div>
+                    <p class="footer-desc">
+                        کافه معدن، اکوسیستم جامع نوآوری، آموزش، مشاوره و توسعه کسب‌وکارهای معدنی در ایران
+                    </p>
+                    
+                    <div class="footer-social">
+                        <h4 class="social-title">شبکه‌های اجتماعی ما</h4>
+                        <div class="social-links">
+                            <a href="https://www.instagram.com/cafemadan_official/?hl=en" class="social-link" aria-label="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/company/cafemadanofficial/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPOTM2NjE5NzQzMzkyNDU5AAGno-MJZFKBWafqtH5XJ0cYtlppnlG0RKQEsJx5RGIUmrALfQGjsswHOVIt8Mc_aem_hUCE9BTPhNIYxbwNOilqFw" class="social-link" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="https://nshn.ir/0b_bvknBexOsJ0" class="social-link" aria-label="Telegram">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </a>
+                           
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-title">
+                        <span class="title-icon"><i class="fas fa-building"></i></span>
+                        شرکت‌های تابعه
+                    </h4>
+                    <ul class="footer-links">
+                        <li>
+                            <a href="https://www.instagram.com/madan.daad/" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                معدن داد
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/madan.moshaverr/" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                معدن مشاور
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/madan.academy/" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                معدن آکادمی
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/madan_ads/" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                معدن ادز
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-title">
+                        <span class="title-icon"><i class="fas fa-link"></i></span>
+                        دسترسی سریع
+                    </h4>
+                    <ul class="footer-links">
+                        <li>
+                            <a href="aboutus.html" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                درباره ما
+                            </a>
+                        </li>
+                        <li>
+                            <a href="khadamat.html" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                خدمات
+                            </a>
+                        </li>
+                        <li>
+                            <a href="articels.html" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                بلاگ
+                            </a>
+                        </li>
+                        <li>
+                            <a href="call.html" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                تماس با ما
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="footer-col footer-contact">
+                    <h4 class="footer-title">
+                        <span class="title-icon"><i class="fas fa-address-card"></i></span>
+                        ارتباط با ما
+                    </h4>
+                    
+                    <div class="contact-items">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">شماره تماس</span>
+                                <a href="tel:02188029006" class="contact-value">
+                                    ۰۲۱ - ۸۸۰۲۹۰۰۶
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">پست الکترونیک</span>
+                                <a href="info@cafemadan.com" class="contact-value">
+                                    info@cafemadan.com
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">آدرس</span>
+                                <a href="https://nshn.ir/0b_bvknBexOsJ0" style="cursor: pointer;" class="contact-value address-text">
+                                    جلال آل احمد، خیابان احمد احمدی،
+                                    دانشکده اقتصاد دانشگاه تهران
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p class="copyright">
+                        © کلیه حقوق این وب‌سایت متعلق به کافه معدن می‌باشد.
+                    </p>
+                    <p class="footer-separator">|</p>
+                    <p class="designed-by">
+                        طراحی و توسعه توسط آرمان یوسفی و آرین چایچی
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="footer-glow footer-glow-1"></div>
+        <div class="footer-glow footer-glow-2"></div>
+    </footer>
+
+    <section class="consultation">
+    <div class="content" style="display: flex;align-items: center;justify-content: center;">
+
+        <div class="title-box" style="padding: 0 1rem;">
+            <span style="color: #d4a24c;">FREE CONSULTATION</span>
+            <h2 style="color: #f1f1f1;">دریافت مشاوره رایگان</h2>
+        </div>
+
+          <form class="consult-banner__form">
+
+        <div class="consult-banner__field">
+            <input type="text" placeholder="نام و نام خانوادگی" style="font-family: 'Vazirmatn', sans-serif;font-size: 20px;">
+            <i class="fas fa-user"></i>
+        </div>
+
+        <div class="consult-banner__field">
+            <input type="tel" placeholder="شماره تماس" style="font-family: 'Vazirmatn', sans-serif;font-size: 20px;">
+            <i class="fas fa-phone"></i>
+        </div>
+
+        <button class="consult-banner__btn" style="font-family: 'Vazirmatn', sans-serif;position: relative;bottom: .8rem;">
+            ثبت درخواست
+            <i class="fas fa-arrow-left"></i>
+        </button>
+
+    </form> 
+
+    </div>
+</section>
+
+
+<script>
+    const infos = [
+    "toggleInfo",
+    "toggleInfo2",
+    "toggleInfo3",
+    "toggleInfo4",
+];
+
+function openInfo(id) {
+    // بستن همه
+    infos.forEach(info => {
+        if (info !== id) {
+            document.getElementById(info).classList.remove("show");
+        }
+    });
+
+    // باز یا بسته کردن آیتم انتخاب‌شده
+    document.getElementById(id).classList.toggle("show");
+}
+
+document.getElementById("togglebtn").addEventListener("click", () => openInfo("toggleInfo"));
+document.getElementById("togglebtn2").addEventListener("click", () => openInfo("toggleInfo2"));
+document.getElementById("togglebtn3").addEventListener("click", () => openInfo("toggleInfo3"));
+document.getElementById("togglebtn4").addEventListener("click", () => openInfo("toggleInfo4"));
+
+
+
+
+</script>
+
+
+<script>
+    const womanInfos = [
+    "toggleInfowoman",
+    "toggleInfowoman2",
+    "toggleInfowoman3"
+];
+
+function openWomanInfo(id) {
+    // بستن همه آیتم‌ها
+    womanInfos.forEach(info => {
+        if (info !== id) {
+            document.getElementById(info).classList.remove("show");
+        }
+    });
+
+    // باز یا بسته کردن آیتم انتخاب‌شده
+    document.getElementById(id).classList.toggle("show");
+}
+
+document.getElementById("togglebtnwoman")
+    .addEventListener("click", () => openWomanInfo("toggleInfowoman"));
+
+document.getElementById("togglebtnwoman2")
+    .addEventListener("click", () => openWomanInfo("toggleInfowoman2"));
+
+document.getElementById("togglebtnwoman3")
+    .addEventListener("click", () => openWomanInfo("toggleInfowoman3"));
+</script>
+
+
+    <script>
+const descriptions = {
+    1396: "در سال ۱۳۹۶ فعالیت مجموعه به‌صورت رسمی آغاز شد. با راه‌اندازی اولین واحد تولیدی و تشکیل تیم اولیه، پایه‌های رشد و توسعه شرکت شکل گرفت و مسیر ورود به صنعت با برنامه‌ریزی دقیق و هدف‌گذاری بلندمدت آغاز شد.",
+
+    1397: "در سال ۱۳۹۷ نخستین محصول شرکت با موفقیت تولید و به بازار عرضه شد. این دستاورد نقطه عطفی در فعالیت مجموعه بود و زمینه جلب اعتماد مشتریان و افزایش ظرفیت تولید را فراهم کرد.",
+
+    1398: "در سال ۱۳۹۸ با توسعه شبکه فروش و ایجاد همکاری‌های جدید، محصولات شرکت به بازارهای گسترده‌تری راه یافتند. این سال آغاز فصل جدیدی از رشد تجاری و افزایش سهم بازار مجموعه بود.",
+
+    1399: "در سال ۱۳۹۹ واحد تحقیق و توسعه (R&D) با هدف ارتقای کیفیت محصولات، بهینه‌سازی فرآیندهای تولید و توسعه فناوری‌های نوین تأسیس شد. این اقدام نقش مهمی در افزایش توان رقابتی شرکت ایفا کرد.",
+
+    1400: "در سال ۱۴۰۰ فعالیت‌های صادراتی شرکت آغاز شد و محصولات مجموعه به بازارهای بین‌المللی راه پیدا کردند. توسعه همکاری با شرکای خارجی و رعایت استانداردهای جهانی از مهم‌ترین دستاوردهای این سال بود.",
+
+    1401: "در سال ۱۴۰۱ با توسعه زیرساخت‌ها و افزایش فضای کارخانه، ظرفیت تولید به میزان قابل توجهی افزایش یافت. همچنین تجهیزات جدید و فناوری‌های به‌روز به خطوط تولید اضافه شدند تا پاسخگوی نیاز روزافزون بازار باشند.",
+
+    1402: "در سال ۱۴۰۲ پروژه‌های متعددی برای بهینه‌سازی فرآیندهای تولید، کاهش هزینه‌ها و افزایش بهره‌وری اجرا شد. استفاده از فناوری‌های نوین و تمرکز بر کیفیت، موجب ارتقای عملکرد و رضایت بیشتر مشتریان گردید.",
+
+    1403: "در سال ۱۴۰۳ مجموعه با بهره‌برداری کامل از ظرفیت خطوط تولید و تکمیل پروژه‌های توسعه‌ای، به جایگاه بالاتری در صنعت دست یافت. افزایش توان تولید، توسعه بازارهای هدف و تمرکز بر نوآوری، مسیر آینده شرکت را بیش از پیش هموار ساخت."
+};
+
+document.querySelectorAll(".timeline-item").forEach(item => {
+    item.addEventListener("mouseenter", function () {
+        const year = this.querySelector(".timeline-year").textContent.trim();
+        document.getElementById("story-text").textContent = descriptions[year];
+    });
+});
+
+/*document.querySelectorAll(".timeline-item").forEach(item => {
+    item.addEventListener("click", function(e) {
+        e.preventDefault();
+
+        const year = this.querySelector(".timeline-year").textContent.trim();
+        document.getElementById("story-text").textContent = descriptions[year];
+    });
+});*/
+</script>
+
+ <script src="./js/calanaci.js"></script>
+    <script src="./js/eco2.js"></script>
+<script src="./js/abooutus.js"></script>
+<script src="./js/footer.js"></script>
+<script src="./js/articels2.js"></script>
+<script src="./js/articels.js"></script>
+<script src="./js/faq.js"></script>
+<script src="./js/research.js"></script>
+<script src="./js/servis.js"></script>
+<script src="./js/eco.js"></script>
+<script src="./js/navbar.js"></script>
+<script src="./js/card.js"></script>    
+<script src="./js/search.js"></script>
+<script src="./js/main.js"></script>
+</body>
+</html>

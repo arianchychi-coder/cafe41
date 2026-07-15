@@ -1,0 +1,727 @@
+:root {
+    --mp-gold: #FAB900;
+    --mp-gold-light: #ffc933;
+    --mp-gold-dark: #d49d00;
+    --mp-gold-bg: rgba(250, 185, 0, 0.08);
+    --mp-black: #1D1D1B;
+    --mp-black-light: #2a2a28;
+    --mp-white: #ffffff;
+    --mp-bg: #f8f8f6;
+    --mp-text-dark: #1D1D1B;
+    --mp-text-medium: #4a4a48;
+    --mp-text-light: #8a8a88;
+    --mp-border: #e8e8e6;
+    --mp-border-light: #f0f0ee;
+    --mp-shadow: 0 25px 80px rgba(29, 29, 27, 0.15);
+    --mp-font: 'Vazirmatn', sans-serif;
+}
+
+/* ========== ریست ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--mp-font);
+    background: var(--mp-bg);
+    color: var(--mp-text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ========== پس‌زمینه پترن مینیمال ========== */
+.mp-pattern-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.mp-pattern-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.08;
+    animation: mp-circle-float 25s infinite ease-in-out;
+}
+
+.mp-circle-1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, var(--mp-gold), transparent);
+    top: -150px;
+    right: -150px;
+}
+
+.mp-circle-2 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, var(--mp-gold-light), transparent);
+    bottom: -100px;
+    left: -100px;
+    animation-delay: 12s;
+}
+
+@keyframes mp-circle-float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(40px, -40px) scale(1.15); }
+}
+
+/* ========== دکمه نمایش مودال ========== */
+.mp-trigger-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+}
+
+.mp-trigger-btn {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: var(--mp-white);
+    border: 1.5px solid var(--mp-border);
+    border-radius: 18px;
+    padding: 16px 28px;
+    cursor: pointer;
+    font-family: var(--mp-font);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 8px 30px rgba(29, 29, 27, 0.06);
+    min-width: 360px;
+}
+
+.mp-trigger-btn:hover {
+    border-color: var(--mp-gold);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(250, 185, 0, 0.15);
+}
+
+.mp-trigger-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--mp-gold), var(--mp-gold-dark));
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--mp-white);
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.mp-trigger-btn:hover .mp-trigger-icon {
+    transform: rotate(-8deg) scale(1.08);
+}
+
+.mp-trigger-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1;
+}
+
+.mp-trigger-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--mp-text-dark);
+    text-align: right;
+}
+
+.mp-trigger-subtitle {
+    font-size: 0.82rem;
+    color: var(--mp-text-light);
+    font-weight: 500;
+    text-align: right;
+}
+
+.mp-trigger-arrow {
+    width: 38px;
+    height: 38px;
+    background: var(--mp-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--mp-gold);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.mp-trigger-btn:hover .mp-trigger-arrow {
+    background: var(--mp-gold);
+    color: var(--mp-white);
+    transform: translateX(-4px);
+}
+
+/* ========== Overlay ========== */
+.mp-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(29, 29, 27, 0.75);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    padding: 20px;
+    overflow: hidden;   /* اضافه شد */
+}
+
+.mp-overlay.active{
+    opacity: 1;
+    visibility: visible;
+    overflow: hidden;
+}
+
+/* ========== مودال ========== */
+.mp-modal {
+    background: var(--mp-white);
+    border-radius: 24px;
+    max-width: 1050px;
+    width: 100%;
+    height: 90vh;
+    max-height: 95vh;
+    overflow: hidden;
+    position: relative;
+    box-shadow: var(--mp-shadow);
+}
+
+.mp-overlay.active .mp-modal {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+/* دکمه بستن */
+.mp-close-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 42px;
+    height: 42px;
+    background: var(--mp-bg);
+    border: none;
+    border-radius: 50%;
+    color: var(--mp-text-dark);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.mp-close-btn:hover {
+    background: var(--mp-gold);
+    color: var(--mp-white);
+    transform: rotate(90deg);
+}
+
+/* ========== بدنه مودال ========== */
+.mp-modal-body {
+    display: flex;
+    gap: 35px;
+    padding: 45px;
+    height: 100%;
+    overflow-y: auto !important;
+    overflow-x: hidden;
+}
+.mp-modal-body::-webkit-scrollbar {
+    width: 2rem;
+}
+
+.mp-modal-body::-webkit-scrollbar-thumb {
+    background: var(--mp-gold);
+    border-radius: 20px;
+}
+.mp-modal-body::-webkit-scrollbar-track {
+    background: #f0f0ee;
+}
+
+/* ستون‌ها */
+.mp-content-column {
+    flex: 1.15;
+    min-width: 0;
+}
+
+.mp-sidebar-column {
+    width: 360px;
+    flex-shrink: 0;
+}
+
+/* مطمئن شو که محتوای داخل اسکرول بشه */
+.mp-content-column,
+.mp-sidebar-column {
+    max-height: 100%;
+}
+
+/* ========== ستون محتوا ========== */
+.mp-content-column {
+    flex: 1.15;
+    min-width: 0;
+}
+
+.mp-overlay.active {
+    overflow: hidden;   /* جلوگیری از اسکرول صفحه پشت مودال */
+}
+
+html, body {
+    overscroll-behavior: none;
+}
+
+.mp-content-header {
+    margin-bottom: 22px;
+}
+
+.mp-milestone-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--mp-gold-bg);
+    color: var(--mp-gold-dark);
+    padding: 7px 15px;
+    border-radius: 22px;
+    font-size: 0.83rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    border: 1px solid rgba(250, 185, 0, 0.15);
+}
+
+.mp-milestone-badge i {
+    color: var(--mp-gold);
+    font-size: 0.88rem;
+}
+
+.mp-content-title {
+    font-size: 2.1rem;
+    font-weight: 900;
+    color: var(--mp-text-dark);
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.mp-content-subtitle {
+    font-size: 1rem;
+    color: var(--mp-text-light);
+    font-weight: 500;
+}
+
+.mp-content-description {
+    font-size: 0.98rem;
+    color: var(--mp-text-medium);
+    line-height: 1.9;
+    margin-bottom: 32px;
+    text-align: justify;
+}
+
+/* ========== بخش رویدادها ========== */
+.mp-events-section {
+    margin-top: 22px;
+}
+
+.mp-events-title {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--mp-text-dark);
+    margin-bottom: 26px;
+}
+
+.mp-events-dot {
+    width: 11px;
+    height: 11px;
+    background: var(--mp-gold);
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.mp-events-timeline {
+    position: relative;
+    padding-right: 22px;
+}
+
+.mp-events-timeline::before {
+    content: '';
+    position: absolute;
+    right: 4px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--mp-border-light);
+}
+
+.mp-event-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 26px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.mp-event-item:hover {
+    transform: translateX(-4px);
+}
+
+.mp-event-item:last-child {
+    margin-bottom: 0;
+}
+
+.mp-event-date {
+    width: 105px;
+    flex-shrink: 0;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--mp-text-dark);
+    text-align: left;
+    padding-top: 2px;
+}
+
+.mp-event-line {
+    position: relative;
+    width: 10px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    padding-top: 7px;
+}
+
+.mp-event-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--mp-gold);
+    border-radius: 50%;
+    display: block;
+    box-shadow: 0 0 0 4px var(--mp-white);
+    z-index: 2;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.mp-event-item:hover .mp-event-dot {
+    transform: scale(1.25);
+}
+
+.mp-event-info {
+    flex: 1;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--mp-border-light);
+}
+
+.mp-event-item:last-child .mp-event-info {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.mp-event-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--mp-text-dark);
+    margin-bottom: 5px;
+}
+
+.mp-event-desc {
+    font-size: 0.88rem;
+    color: var(--mp-text-light);
+    line-height: 1.7;
+}
+
+/* ========== ستون سایدبار ========== */
+.mp-sidebar-column {
+    width: 360px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* تصویر با placeholder */
+.mp-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 260px;
+    border-radius: 18px;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--mp-border-light), var(--mp-border));
+}
+
+/* Placeholder وقتی عکس لود نمی‌شود */
+.mp-image-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #f0f0ee, #e8e8e6);
+    color: var(--mp-text-light);
+    z-index: 1;
+    transition: opacity 0.4s ease;
+}
+
+.mp-image-placeholder i {
+    font-size: 3rem;
+    opacity: 0.4;
+}
+
+.mp-image-placeholder span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    opacity: 0.6;
+}
+
+/* عکس واقعی */
+.mp-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 2;
+    transition: transform 0.5s ease, opacity 0.4s ease;
+}
+
+.mp-image-wrapper:hover .mp-image {
+    transform: scale(1.04);
+}
+
+/* وقتی عکس لود شد، placeholder را مخفی کن */
+.mp-image-wrapper.image-loaded .mp-image-placeholder {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.mp-image-date-badge {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    background: var(--mp-gold);
+    color: var(--mp-black);
+    padding: 9px 16px;
+    border-radius: 12px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    box-shadow: 0 4px 12px rgba(250, 185, 0, 0.35);
+    z-index: 3;
+}
+
+.mp-image-date-badge i {
+    font-size: 0.92rem;
+}
+
+/* کارت پیشرفت */
+.mp-progress-card {
+    background: var(--mp-white);
+    border: 1px solid var(--mp-border);
+    border-radius: 16px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.mp-progress-card:hover {
+    border-color: rgba(250, 185, 0, 0.25);
+}
+
+.mp-progress-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--mp-text-dark);
+    margin-bottom: 16px;
+    padding-bottom: 13px;
+    border-bottom: 1.5px solid var(--mp-border-light);
+}
+
+.mp-progress-header i {
+    color: var(--mp-gold);
+    font-size: 1.1rem;
+}
+
+.mp-progress-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mp-progress-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.87rem;
+}
+
+.mp-progress-label {
+    color: var(--mp-text-light);
+    font-weight: 500;
+}
+
+.mp-progress-value {
+    color: var(--mp-text-dark);
+    font-weight: 700;
+}
+
+/* کارت‌های آمار */
+.mp-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.mp-stat-card {
+    background: var(--mp-white);
+    border: 1px solid var(--mp-border);
+    border-radius: 14px;
+    padding: 18px 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: default;
+}
+
+.mp-stat-card:hover {
+    border-color: var(--mp-gold);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(250, 185, 0, 0.12);
+}
+
+.mp-stat-card i {
+    color: var(--mp-gold);
+    font-size: 1.25rem;
+    transition: all 0.3s ease;
+}
+
+.mp-stat-card:hover i {
+    transform: scale(1.15);
+}
+
+.mp-stat-value {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--mp-text-dark);
+    line-height: 1;
+}
+
+.mp-stat-label {
+    font-size: 0.68rem;
+    color: var(--mp-text-light);
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+/* ========== ریسپانسیو ========== */
+@media (max-width: 1024px) {
+    .mp-modal-body {
+        flex-direction: column;
+        padding: 30px;
+        gap: 28px;
+    }
+    
+    .mp-sidebar-column {
+        width: 100%;
+    }
+    
+    .mp-image-wrapper {
+        height: 240px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mp-modal-body {
+        padding: 22px;
+    }
+    
+    .mp-content-title {
+        font-size: 1.7rem;
+    }
+    
+    .mp-event-item {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .mp-event-date {
+        width: auto;
+        text-align: right;
+        font-size: 0.83rem;
+        color: var(--mp-gold-dark);
+    }
+    
+    .mp-event-line {
+        display: none;
+    }
+    
+    .mp-events-timeline::before {
+        display: none;
+    }
+    
+    .mp-close-btn {
+        top: 15px;
+        left: 15px;
+        width: 38px;
+        height: 38px;
+    }
+    
+    .mp-trigger-btn {
+        min-width: auto;
+        padding: 14px 20px;
+        gap: 14px;
+    }
+    
+    .mp-trigger-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 1.15rem;
+    }
+    
+    .mp-trigger-title {
+        font-size: 0.98rem;
+    }
+    
+    .mp-trigger-subtitle {
+        font-size: 0.78rem;
+    }
+    
+    .mp-trigger-arrow {
+        width: 34px;
+        height: 34px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mp-stats-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .mp-image-wrapper {
+        height: 200px;
+    }
+}

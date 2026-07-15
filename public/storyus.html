@@ -1,0 +1,2103 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>داستان ما</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/story.css">
+    <link rel="stylesheet" href="css/modal.css">
+
+</head>
+
+
+<style>
+    .os-timeline-item {
+    cursor: pointer;
+}
+  .mp-pattern-bg {
+            position: fixed; inset: 0;
+            z-index: -1; overflow: hidden; pointer-events: none;
+        }
+        .mp-pattern-circle {
+            position: absolute; border-radius: 50%;
+            filter: blur(100px); opacity: 0.08;
+            animation: mp-circle-float 25s infinite ease-in-out;
+        }
+        .mp-circle-1 {
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, var(--mp-gold), transparent);
+            top: -150px; right: -150px;
+        }
+        .mp-circle-2 {
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, var(--mp-gold-light), transparent);
+            bottom: -100px; left: -100px;
+            animation-delay: 12s;
+        }
+        @keyframes mp-circle-float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(40px, -40px) scale(1.15); }
+        }
+
+        /* ========== دکمه نمایش مودال ========== */
+        .mp-trigger-container {
+            position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); z-index: 100;
+        }
+        .mp-trigger-btn {
+            display: flex; align-items: center; gap: 18px;
+            background: var(--mp-white); border: 1.5px solid var(--mp-border);
+            border-radius: 18px; padding: 18px 30px;
+            cursor: pointer; font-family: var(--mp-font);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 8px 30px rgba(29, 29, 27, 0.06);
+            min-width: 380px; position: relative; overflow: hidden;
+        }
+        .mp-trigger-btn::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(250,185,0,0.04), transparent);
+            opacity: 0; transition: opacity 0.4s ease;
+        }
+        .mp-trigger-btn:hover::before { opacity: 1; }
+        .mp-trigger-btn:hover {
+            border-color: var(--mp-gold); transform: translateY(-4px);
+            box-shadow: 0 16px 50px rgba(250, 185, 0, 0.15);
+        }
+        .mp-trigger-icon {
+            width: 52px; height: 52px;
+            background: linear-gradient(135deg, var(--mp-gold), var(--mp-gold-dark));
+            border-radius: 14px; display: flex; align-items: center; justify-content: center;
+            color: var(--mp-white); font-size: 1.3rem; flex-shrink: 0;
+            transition: all 0.3s ease; position: relative; z-index: 1;
+        }
+        .mp-trigger-btn:hover .mp-trigger-icon {
+            transform: rotate(-8deg) scale(1.08);
+            box-shadow: 0 6px 20px rgba(250, 185, 0, 0.35);
+        }
+        .mp-trigger-content {
+            display: flex; flex-direction: column; gap: 3px;
+            flex: 1; position: relative; z-index: 1;
+        }
+        .mp-trigger-title {
+            font-size: 1.08rem; font-weight: 800;
+            color: var(--mp-text-dark); text-align: right;
+        }
+        .mp-trigger-subtitle {
+            font-size: 0.82rem; color: var(--mp-text-light);
+            font-weight: 500; text-align: right;
+        }
+        .mp-trigger-arrow {
+            width: 40px; height: 40px; background: var(--mp-bg);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: var(--mp-gold); font-size: 0.95rem;
+            transition: all 0.3s ease; flex-shrink: 0;
+            position: relative; z-index: 1;
+        }
+        .mp-trigger-btn:hover .mp-trigger-arrow {
+            background: var(--mp-gold); color: var(--mp-white);
+            transform: translateX(-4px);
+        }
+
+        /* ========== Overlay ========== */
+        .mp-overlay {
+            position: fixed; inset: 0;
+            background: rgba(29, 29, 27, 0.6);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000; opacity: 0; visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            padding: 20px;
+        }
+        .mp-overlay.active { opacity: 1; visibility: visible; }
+
+        /* ========== مودال ========== */
+        .mp-modal {
+            background: var(--mp-white); border-radius: 24px;
+            max-width: 1080px; width: 100%; max-height: 90vh;
+            overflow: hidden; position: relative; box-shadow: var(--mp-shadow);
+            transform: scale(0.92) translateY(20px); opacity: 0;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex; flex-direction: column;
+        }
+        .mp-overlay.active .mp-modal {
+            transform: scale(1) translateY(0); opacity: 1;
+        }
+
+        /* ========== هدر استیکی (خط طلایی + نوار پیشرفت + تب‌ها) ========== */
+        .mp-modal-header {
+            position: relative; z-index: 15; flex-shrink: 0;
+        }
+        .mp-gold-line {
+            height: 3px;
+            background: linear-gradient(90deg, transparent 5%, var(--mp-gold) 30%, var(--mp-gold-light) 50%, var(--mp-gold) 70%, transparent 95%);
+            border-radius: 24px 24px 0 0; overflow: hidden;
+        }
+        .mp-gold-line::after {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 60%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            animation: mp-shimmer 3s infinite ease-in-out;
+        }
+        @keyframes mp-shimmer {
+            0% { left: -60%; }
+            100% { left: 100%; }
+        }
+
+        .mp-scroll-progress {
+            height: 2px; right: 0;
+            background: linear-gradient(90deg, var(--mp-gold-dark), var(--mp-gold-light));
+            width: 0; border-radius: 0 1px 1px 0;
+            transition: width 0.05s linear;
+        }
+
+        .mp-year-nav {
+            display: flex; align-items: center; gap: 10px;
+            padding: 0 45px;
+            border-bottom: 1px solid var(--mp-border-light);
+            background: var(--mp-white);
+        }
+        .mp-year-tabs {
+            display: flex; gap: 8px; overflow-x: auto; flex: 1;
+            padding: 14px 0; scrollbar-width: none;
+            scroll-snap-type: x mandatory;
+        }
+        .mp-year-tabs::-webkit-scrollbar { display: none; }
+        .mp-year-tab {
+            padding: 9px 22px; border-radius: 12px;
+            border: 1.5px solid var(--mp-border); background: transparent;
+            color: var(--mp-text-light); font-family: var(--mp-font);
+            font-size: 0.88rem; font-weight: 700; cursor: pointer;
+            white-space: nowrap; transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            scroll-snap-align: start;
+        }
+        .mp-year-tab:hover {
+            border-color: var(--mp-gold); color: var(--mp-gold-dark);
+            transform: translateY(-2px);
+        }
+        .mp-year-tab.active {
+            background: linear-gradient(135deg, var(--mp-gold), var(--mp-gold-dark));
+            border-color: transparent; color: var(--mp-black);
+            box-shadow: 0 4px 16px rgba(250, 185, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* ========== محتوای اسکرول‌پذیر ========== */
+        .mp-modal-scroll {
+            flex: 1; overflow-y: auto; overflow-x: hidden;
+            scrollbar-width: thin;
+            scrollbar-color: var(--mp-border) transparent;
+        }
+        .mp-modal-scroll::-webkit-scrollbar { width: 6px; }
+        .mp-modal-scroll::-webkit-scrollbar-track { background: transparent; }
+        .mp-modal-scroll::-webkit-scrollbar-thumb {
+            background: var(--mp-border); border-radius: 3px;
+        }
+        .mp-modal-scroll::-webkit-scrollbar-thumb:hover { background: var(--mp-text-light); }
+
+        /* دکمه بستن */
+        .mp-close-btn {
+            position: absolute; top: 20px; left: 20px;
+            width: 42px; height: 42px; background: var(--mp-bg);
+            border: none; border-radius: 50%; color: var(--mp-text-dark);
+            font-size: 1rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease; z-index: 20;
+        }
+        .mp-close-btn:hover {
+            background: var(--mp-gold); color: var(--mp-white);
+            transform: rotate(90deg);
+        }
+
+        /* ========== بدنه مودال ========== */
+        .mp-modal-body {
+            display: flex; gap: 35px; padding: 40px 45px 45px;
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+        .mp-modal-body.transitioning {
+            opacity: 0; transform: translateY(12px);
+        }
+
+        /* ========== ستون محتوا ========== */
+        .mp-content-column { flex: 1.2; min-width: 0; }
+        .mp-content-header { margin-bottom: 20px; }
+        .mp-milestone-badge {
+            display: inline-flex; align-items: center; gap: 7px;
+            background: var(--mp-gold-bg); color: var(--mp-gold-dark);
+            padding: 7px 16px; border-radius: 22px;
+            font-size: 0.82rem; font-weight: 700; margin-bottom: 16px;
+            border: 1px solid rgba(250, 185, 0, 0.15);
+        }
+        .mp-milestone-badge i { color: var(--mp-gold); font-size: 0.88rem; }
+        .mp-content-title {
+            font-size: 2.1rem; font-weight: 900;
+            color: var(--mp-text-dark); margin-bottom: 8px; line-height: 1.3;
+        }
+        .mp-content-subtitle {
+            font-size: 1rem; color: var(--mp-text-light); font-weight: 500;
+        }
+        .mp-content-description {
+            font-size: 0.96rem; color: var(--mp-text-medium);
+            line-height: 2; margin-bottom: 30px; text-align: justify;
+        }
+
+        /* ========== تایم‌لاین ========== */
+        .mp-events-section { margin-top: 20px; }
+        .mp-events-title {
+            display: flex; align-items: center; gap: 11px;
+            font-size: 1.08rem; font-weight: 800;
+            color: var(--mp-text-dark); margin-bottom: 24px;
+        }
+        .mp-events-dot {
+            width: 10px; height: 10px; background: var(--mp-gold);
+            border-radius: 50%; display: inline-block;
+            box-shadow: 0 0 0 4px var(--mp-gold-bg);
+        }
+        .mp-events-timeline { position: relative; padding-right: 22px; }
+        .mp-events-timeline::before {
+            content: ''; position: absolute; right: 4px; top: 8px; bottom: 8px;
+            width: 2px; background: linear-gradient(to bottom, var(--mp-gold), var(--mp-border-light), transparent);
+        }
+        .mp-event-item {
+            display: flex; align-items: flex-start; gap: 16px;
+            margin-bottom: 24px; position: relative;
+            opacity: 0; transform: translateX(20px);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .mp-event-item.visible { opacity: 1; transform: translateX(0); }
+        .mp-event-item:hover { transform: translateX(-4px); }
+        .mp-event-item:last-child { margin-bottom: 0; }
+        .mp-event-date {
+            width: 100px; flex-shrink: 0; font-size: 0.85rem;
+            font-weight: 700; color: var(--mp-text-dark);
+            text-align: left; padding-top: 2px;
+        }
+        .mp-event-line {
+            position: relative; width: 10px; flex-shrink: 0;
+            display: flex; justify-content: center; padding-top: 7px;
+        }
+        .mp-event-dot {
+            width: 10px; height: 10px; background: var(--mp-gold);
+            border-radius: 50%; display: block;
+            box-shadow: 0 0 0 4px var(--mp-white); z-index: 2;
+            position: relative; transition: all 0.3s ease;
+        }
+        .mp-event-item:hover .mp-event-dot {
+            transform: scale(1.3);
+            box-shadow: 0 0 0 4px var(--mp-white), 0 0 0 7px var(--mp-gold-bg);
+        }
+        .mp-event-info {
+            flex: 1; padding-bottom: 20px;
+            border-bottom: 1px solid var(--mp-border-light);
+        }
+        .mp-event-item:last-child .mp-event-info {
+            border-bottom: none; padding-bottom: 0;
+        }
+        .mp-event-title {
+            font-size: 0.98rem; font-weight: 800;
+            color: var(--mp-text-dark); margin-bottom: 4px;
+        }
+        .mp-event-desc {
+            font-size: 0.86rem; color: var(--mp-text-light); line-height: 1.75;
+        }
+
+        /* ========== ستون سایدبار ========== */
+        .mp-sidebar-column {
+            width: 370px; flex-shrink: 0;
+            display: flex; flex-direction: column; gap: 16px;
+        }
+
+        /* ========== تصویر ========== */
+        .mp-image-section { display: flex; flex-direction: column; gap: 10px; }
+        .mp-image-wrapper {
+            position: relative; width: 100%; height: 250px;
+            border-radius: 18px; overflow: hidden;
+            background: linear-gradient(135deg, var(--mp-border-light), var(--mp-border));
+        }
+        .mp-image-placeholder {
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; gap: 12px;
+            background: linear-gradient(135deg, #f0f0ee, #e8e8e6);
+            color: var(--mp-text-light); z-index: 1;
+            transition: opacity 0.4s ease;
+        }
+        .mp-image-placeholder i { font-size: 2.8rem; opacity: 0.35; }
+        .mp-image-placeholder span { font-size: 0.88rem; font-weight: 600; opacity: 0.5; }
+        .mp-image {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: cover; object-position: center; z-index: 2;
+            transition: transform 0.5s ease, opacity 0.35s ease;
+        }
+        .mp-image-wrapper:hover .mp-image { transform: scale(1.04); }
+        .mp-image-wrapper.image-loaded .mp-image-placeholder {
+            opacity: 0; pointer-events: none;
+        }
+        .mp-image-overlay {
+            position: absolute; inset: 0; z-index: 4;
+            background: rgba(29, 29, 27, 0.35);
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; gap: 8px; color: white;
+            opacity: 0; transition: opacity 0.3s ease;
+            cursor: pointer; border-radius: 18px;
+        }
+        .mp-image-overlay i { font-size: 1.6rem; }
+        .mp-image-overlay span { font-size: 0.85rem; font-weight: 600; }
+        .mp-image-wrapper:hover .mp-image-overlay { opacity: 1; }
+        .mp-image-date-badge {
+            position: absolute; bottom: 14px; left: 14px; z-index: 5;
+            background: var(--mp-gold); color: var(--mp-black);
+            padding: 8px 15px; border-radius: 12px;
+            font-size: 0.85rem; font-weight: 700;
+            display: flex; align-items: center; gap: 7px;
+            box-shadow: 0 4px 14px rgba(250, 185, 0, 0.4);
+        }
+        .mp-image-date-badge i { font-size: 0.88rem; }
+
+        /* ========== گالری ========== */
+        .mp-gallery { display: flex; gap: 8px; }
+        .mp-gallery-thumb {
+            flex: 1; aspect-ratio: 4/3; border-radius: 10px;
+            overflow: hidden; cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease; position: relative;
+            background: var(--mp-border-light);
+        }
+        .mp-gallery-thumb.active {
+            border-color: var(--mp-gold);
+            box-shadow: 0 2px 12px rgba(250, 185, 0, 0.25);
+        }
+        .mp-gallery-thumb img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .mp-gallery-thumb:hover img { transform: scale(1.08); }
+        .mp-gallery-thumb-placeholder {
+            position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--mp-text-light); font-size: 1.2rem; opacity: 0.3;
+        }
+
+        /* ========== کارت پیشرفت (فقط عدد) ========== */
+        .mp-progress-card {
+            background: var(--mp-white); border: 1px solid var(--mp-border);
+            border-radius: 16px; padding: 20px;
+            transition: all 0.3s ease;
+        }
+        .mp-progress-card:hover { border-color: rgba(250, 185, 0, 0.2); }
+        .mp-progress-header {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 0.93rem; font-weight: 700; color: var(--mp-text-dark);
+            margin-bottom: 16px; padding-bottom: 13px;
+            border-bottom: 1.5px solid var(--mp-border-light);
+        }
+        .mp-progress-header i { color: var(--mp-gold); font-size: 1.05rem; }
+        .mp-progress-list { display: flex; flex-direction: column; gap: 10px; }
+        .mp-progress-item {
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.87rem;
+        }
+        .mp-progress-label { color: var(--mp-text-light); font-weight: 500; }
+        .mp-progress-value { color: var(--mp-text-dark); font-weight: 700; }
+
+        /* ========== کارت‌های آمار ========== */
+        .mp-stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .mp-stat-card {
+            background: var(--mp-white); border: 1px solid var(--mp-border);
+            border-radius: 14px; padding: 18px 8px; text-align: center;
+            display: flex; flex-direction: column; align-items: center; gap: 7px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: default;
+        }
+        .mp-stat-card:hover {
+            border-color: var(--mp-gold); transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(250, 185, 0, 0.12);
+        }
+        .mp-stat-card i {
+            color: var(--mp-gold); font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        .mp-stat-card:hover i { transform: scale(1.15) rotate(-5deg); }
+        .mp-stat-value {
+            font-size: 1.35rem; font-weight: 900;
+            color: var(--mp-text-dark); line-height: 1;
+            min-height: 1.35rem;
+        }
+        .mp-stat-label {
+            font-size: 0.66rem; color: var(--mp-text-light);
+            font-weight: 500; line-height: 1.3;
+        }
+
+        /* ========== لایت‌باکس ========== */
+        .mp-lightbox {
+            position: fixed; inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 2000; opacity: 0; visibility: hidden;
+            transition: all 0.35s ease; padding: 40px;
+            flex-direction: column; gap: 16px;
+        }
+        .mp-lightbox.active { opacity: 1; visibility: visible; }
+        .mp-lightbox-close {
+            position: absolute; top: 20px; left: 20px;
+            width: 46px; height: 46px; border-radius: 50%;
+            border: 1.5px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.08);
+            color: white; font-size: 1.1rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease; z-index: 10;
+        }
+        .mp-lightbox-close:hover {
+            background: var(--mp-gold); border-color: var(--mp-gold);
+            color: var(--mp-black); transform: rotate(90deg);
+        }
+        .mp-lightbox-image {
+            max-width: 90vw; max-height: 80vh; object-fit: contain;
+            border-radius: 12px; transform: scale(0.9);
+            transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .mp-lightbox.active .mp-lightbox-image { transform: scale(1); }
+        .mp-lightbox-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            width: 48px; height: 48px; border-radius: 50%;
+            border: 1.5px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.08);
+            color: white; font-size: 1rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease; z-index: 10;
+        }
+        .mp-lightbox-nav:hover {
+            background: var(--mp-gold); border-color: var(--mp-gold);
+            color: var(--mp-black);
+        }
+        .mp-lightbox-prev { right: 20px; }
+        .mp-lightbox-next { left: 20px; }
+        .mp-lightbox-caption {
+            color: rgba(255,255,255,0.7); font-size: 0.9rem;
+            font-weight: 600; text-align: center;
+        }
+        .mp-lightbox-counter {
+            color: rgba(255,255,255,0.4); font-size: 0.8rem; font-weight: 500;
+        }
+
+        /* ========== ریسپانسیو ========== */
+        @media (max-width: 1024px) {
+            .mp-modal-body { flex-direction: column; padding: 30px; gap: 28px; }
+            .mp-sidebar-column { width: 100%; }
+            .mp-image-wrapper { height: 280px; }
+            .mp-year-nav { padding: 0 30px; }
+        }
+        @media (max-width: 768px) {
+            .mp-modal-body { padding: 22px; gap: 24px; }
+            .mp-content-title { font-size: 1.65rem; }
+            .mp-year-nav { padding: 0 22px; }
+            .mp-year-tab { padding: 8px 18px; font-size: 0.84rem; }
+            .mp-event-item { flex-direction: column; gap: 6px; }
+            .mp-event-date {
+                width: auto; text-align: right;
+                font-size: 0.82rem; color: var(--mp-gold-dark);
+            }
+            .mp-event-line { display: none; }
+            .mp-events-timeline::before { display: none; }
+            .mp-close-btn { top: 14px; left: 14px; width: 38px; height: 38px; }
+            .mp-trigger-btn { min-width: auto; padding: 14px 20px; gap: 14px; }
+            .mp-trigger-icon { width: 46px; height: 46px; font-size: 1.15rem; }
+            .mp-trigger-title { font-size: 0.98rem; }
+            .mp-trigger-subtitle { font-size: 0.76rem; }
+            .mp-trigger-arrow { width: 34px; height: 34px; }
+            .mp-image-wrapper { height: 220px; }
+            .mp-gallery-thumb { aspect-ratio: 3/2; }
+            .mp-lightbox { padding: 20px; }
+            .mp-lightbox-nav { width: 40px; height: 40px; }
+            .mp-lightbox-prev { right: 10px; }
+            .mp-lightbox-next { left: 10px; }
+        }
+        @media (max-width: 480px) {
+            .mp-stats-row { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .mp-stat-card { padding: 14px 6px; }
+            .mp-stat-value { font-size: 1.15rem; }
+            .mp-stat-label { font-size: 0.6rem; }
+            .mp-image-wrapper { height: 190px; }
+            .mp-modal-body { padding: 16px; gap: 20px; }
+            .mp-year-nav { padding: 0 16px; }
+            .mp-content-title { font-size: 1.45rem; }
+            .mp-content-description { font-size: 0.9rem; line-height: 1.85; }
+            .mp-progress-card { padding: 16px; }
+            .mp-trigger-btn { min-width: 0; width: calc(100vw - 40px); }
+        }
+        @media (max-width: 360px) {
+            .mp-gallery { gap: 5px; }
+            .mp-stats-row { gap: 6px; }
+            .mp-stat-value { font-size: 1.05rem; }
+        }
+</style>
+<body class="bg-zinc-950 text-white overflow-x-hidden">
+    <!-- Navbar -->
+
+     <nav class="navbar" id="navbar">
+        <div class="navbar-overlay"></div>
+        <div class="container nav-container">
+            
+            <!-- Logo Section -->
+            <div class="nav-logo">
+                <div class="logo-wrapper">
+                    <div style="position: relative;top: .3rem;">
+                        <img src="images/Asset 1.png" style="object-fit: cover;width: 50px;height: 70px;" alt="">
+                        
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-fa">کافه معدن</span>
+                        <span class="logo-en">CAFE MADAN</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="index.html" style="font-size: 1.2rem;" class="nav-link">
+                        <span class="link-text">خانه</span>
+                        <span class="link-underline"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="khadamat.html" style="font-size: 1.2rem;" class="nav-link">
+                        <span class="link-text">خدمات</span>
+                        <span class="link-underline"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="articels.html" style="font-size: 1.2rem;" class="nav-link">
+                        <span class="link-text">مقالات</span>
+                        <span class="link-underline"></span>
+                    </a>
+                </li>
+               
+                <li class="nav-item">
+                    <a href="aboutus.html" style="font-size: 1.2rem;" class="nav-link">
+                        <span class="link-text">درباره ما</span>
+                        <span class="link-underline"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="call.html" style="font-size: 1.2rem;" class="nav-link">
+                        <span class="link-text">تماس با ما</span>
+                        <span class="link-underline"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" style="font-size: 1.2rem;" class="nav-link active">
+                        <span class="link-text">داستان ما</span>
+                        <span class="link-underline"></span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Action Buttons -->
+            <div class="nav-actions">
+                <a href="#" style="font-size: 1.1rem;" class="btn-ecosystem">
+                    <span class="btn-text">دریافت مشاوره تخصصی</span>
+                    <span class="btn-icon">
+                        <i class="fas fa-arrow-left"></i>
+                    </span>
+                    <span class="btn-shine"></span>
+                </a>
+                
+                <button class="hamburger" id="hamburger" aria-label="منو">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Hero Section -->
+    <section class="hero-bg min-h-screen flex items-center pt-20" style="direction: ltr;background: url('./images/pexels-i-love-pixel-391111544-14747539.jpg') no-repeat;    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    background-position: center;
+    background-size: cover;">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <!-- Left Quote -->
+            <div class="quote-box p-8 md:p-10 rounded-3xl max-w-lg" style="max-width: 20rem;">
+                <div class="text-6xl text-amber-400 mb-6">“</div>
+                <p class="text-lg leading-relaxed text-white/90" style="direction: rtl;">
+                    ما تنها یک شرکت معدنی نیستیم. ما اکوسیستمی هستیم که دانش، فناوری و سرمایه را به صنعت معدن متصل می‌کند.
+                </p>
+                <div class="mt-8 flex items-center gap-4">
+                    <div class="w-12 h-px bg-amber-400"></div>
+                </div>
+            </div>
+            
+            <!-- Right Content -->
+            <div class="text-right">
+                <h1 class="text-5xl md:text-7xl font-bold leading-none mb-6">
+                  داستان <span class="text-amber-400">ما</span>
+                </h1>
+                <p class="text-xl text-white/80 max-w-lg ml-auto mb-10 leading-relaxed">
+    روایتی از آغاز یک مسیر، جایی که دانش، تجربه و نوآوری با هم ترکیب شده‌اند تا صنعت معدن ایران 
+    را به سطحی جدید برسانند. ما تنها یک شرکت معدنی نیستیم؛ ما شریکی قابل اعتماد هستیم که در تمام 
+    مراحل اکتشاف، استخراج، فرآوری و توسعه پایدار در کنار شما ایستاده‌ایم.
+</p>
+                
+                <div class="flex flex-wrap gap-4 justify-end">
+                    <button style="background-color: #F3B300 !important;" onclick="scrollToSection('stats')" 
+                            class="  px-8 py-4 rounded-2xl text-lg font-semibold flex items-center gap-3">
+                            <i class="fas fa-arrow-left"></i>
+                        داستان ما 
+                       
+                    </button>
+                </div>
+                
+                <!-- Trust badges -->
+                <div class="mt-16 flex items-center justify-end gap-8 text-sm">
+                    
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center">
+            <div class="text-xs tracking-widest mb-2 text-white/60">اسکرول کنید</div>
+            <div class="w-6 h-10 border border-white/40 rounded-full flex items-center justify-center">
+                <div class="w-1 h-2 bg-amber-400 rounded-full animate-bounce"></div>
+            </div>
+        </div>
+        
+        <!-- Floating trucks decoration -->
+        <div class="absolute bottom-20 right-10 hidden lg:block text-amber-400/30 text-6xl truck">
+            <i class="fas fa-truck"></i>
+        </div>
+    </section>
+
+    <!-- Statistics -->
+  <!-- Statistics Section -->
+<section id="stats" class="py-20 bg-zinc-900 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6">
+        <!-- عنوان بخش -->
+        <div class="text-center mb-16">
+            <span class="inline-block px-5 py-2 bg-amber-500/10 text-amber-400 text-sm font-medium rounded-full border border-amber-500/20 mb-4">
+                دستاوردهای ما
+            </span>
+            <h2 class="text-4xl font-bold">اعداد و ارقام ما</h2>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            
+            <!-- Stat 1 -->
+            <div class="stat-card group bg-gradient-to-br from-zinc-800 to-zinc-900 p-10 rounded-3xl border border-white/10 hover:border-amber-400/30 transition-all duration-500 text-center relative overflow-hidden">
+                <div class="absolute -right-6 -top-6 text-[120px] font-black text-amber-400/5 group-hover:text-amber-400/10 transition-colors">89</div>
+                <div class="flex justify-center mb-6">
+                    <i style="font-size: 3rem;color: #F3B300;" class="bi bi-file-earmark-binary"></i>
+                </div>
+                <div class="text-6xl font-bold text-amber-400 mb-3 tracking-tighter" data-count="89">0</div>
+                <div class="text-white/80 text-lg font-medium">پروژه به اتمام رسیده</div>
+                <div class="h-1 w-12 bg-amber-400 mx-auto mt-6 rounded-full"></div>
+            </div>
+
+            <!-- Stat 2 -->
+            <div class="stat-card group bg-gradient-to-br from-zinc-800 to-zinc-900 p-10 rounded-3xl border border-white/10 hover:border-amber-400/30 transition-all duration-500 text-center relative overflow-hidden">
+                <div class="absolute -right-6 -top-6 text-[120px] font-black text-amber-400/5 group-hover:text-amber-400/10 transition-colors">38</div>
+                <div class="flex justify-center mb-6">
+                        <i class="bi bi-people" style="font-size: 3rem;color: #F3B300;"></i>
+                </div>
+                <div class="text-6xl font-bold text-amber-400 mb-3 tracking-tighter" data-count="38">0</div>
+                <div class="text-white/80 text-lg font-medium">تیم متخصص</div>
+                <div class="h-1 w-12 bg-amber-400 mx-auto mt-6 rounded-full"></div>
+            </div>
+
+            <!-- Stat 3 -->
+            <div class="stat-card group bg-gradient-to-br from-zinc-800 to-zinc-900 p-10 rounded-3xl border border-white/10 hover:border-amber-400/30 transition-all duration-500 text-center relative overflow-hidden">
+                <div class="absolute -right-6 -top-6 text-[120px] font-black text-amber-400/5 group-hover:text-amber-400/10 transition-colors">42</div>
+                <div class="flex justify-center mb-6">
+                     <i  class="bi bi-person-circle" style="font-size: 3rem;color: #F3B300;"></i>
+                </div>
+                <div class="text-6xl font-bold text-amber-400 mb-3 tracking-tighter" data-count="4200">0</div>
+                <div class="text-white/80 text-lg font-medium">تن محصول استخراجی</div>
+                <div class="h-1 w-12 bg-amber-400 mx-auto mt-6 rounded-full"></div>
+            </div>
+
+            <!-- Stat 4 -->
+            <div class="stat-card group bg-gradient-to-br from-zinc-800 to-zinc-900 p-10 rounded-3xl border border-white/10 hover:border-amber-400/30 transition-all duration-500 text-center relative overflow-hidden">
+                <div class="absolute -right-6 -top-6 text-[120px] font-black text-amber-400/5 group-hover:text-amber-400/10 transition-colors">126</div>
+                <div class="flex justify-center mb-6">
+                     <i  class="bi bi-mortarboard" style="font-size: 3rem;color: #F3B300;"></i>
+                </div>
+                <div class="text-6xl font-bold text-amber-400 mb-3 tracking-tighter" data-count="126">0</div>
+                <div class="text-white/80 text-lg font-medium">مشتری راضی</div>
+                <div class="h-1 w-12 bg-amber-400 mx-auto mt-6 rounded-full"></div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+   <div class="os-background" >
+        <div class="os-grid"></div>
+        <div class="os-gradient-orb os-orb-1"></div>
+        <div class="os-gradient-orb os-orb-2"></div>
+        <div class="os-gradient-orb os-orb-3"></div>
+        
+        <!-- ذرات شناور -->
+        <div class="os-particle os-particle-1"></div>
+        <div class="os-particle os-particle-2"></div>
+        <div class="os-particle os-particle-3"></div>
+        <div class="os-particle os-particle-4"></div>
+        <div class="os-particle os-particle-5"></div>
+        <div class="os-particle os-particle-6"></div>
+        
+        <!-- اشکال هندسی -->
+        <div class="os-geometric os-geo-1"></div>
+        <div class="os-geometric os-geo-2"></div>
+        <div class="os-geometric os-geo-3"></div>
+        
+        <!-- خطوط نوری -->
+        <div class="os-light-line os-line-1"></div>
+        <div class="os-light-line os-line-2"></div>
+    </div>
+
+    <!-- هدر -->
+    <header class="os-header-section">
+        <div class="os-header-content">
+            
+            <h1 class="os-main-title">مسیر <span class="os-accent">رشد</span> و <span class="os-accent">توسعه</span></h1>
+            <p class="os-description">از ۱۳۹۶ تا امروز؛ روایتی از تعهد، نوآوری و پیشرفت</p>
+        </div>
+    </header>
+
+    <!-- تایم‌لاین -->
+    <div  class="os-timeline-section">
+        <div class="os-timeline">
+            
+            <!-- آیتم 1: 1396 -->
+            <div class="os-timeline-item" data-year="1396">
+                <div class="os-timeline-marker">
+                    <span class="os-year-label">1396</span>
+                </div>
+                <div class="os-timeline-content">
+                    <div class="os-card" >
+                        <div class="os-card-header">
+                            <div class="os-card-icon">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <div class="os-card-meta">
+                                <h3 class="os-card-title">آغاز فعالیت</h3>
+                                <span class="os-card-subtitle">تاسیس و شروع کار</span>
+                            </div>
+                        </div>
+                        <p class="os-card-excerpt">شروع فعالیت با تیمی کوچک و چشماندازی بزرگ در حوزه معدن</p>
+                        <div class="os-card-footer">
+                            <button class="os-view-details openModalBtn" data-year="1396">
+                                مشاهده جزئیات
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- آیتم 2: 1397 -->
+            <div class="os-timeline-item os-item-alternate" data-year="1397">
+                <div class="os-timeline-marker">
+                    <span class="os-year-label">1397</span>
+                </div>
+                <div class="os-timeline-content">
+                    <div class="os-card">
+                        <div class="os-card-header">
+                            <div class="os-card-icon">
+                                <i class="fas fa-hard-hat"></i>
+                            </div>
+                            <div class="os-card-meta">
+                                <h3 class="os-card-title">اولین پروژه</h3>
+                                <span class="os-card-subtitle">شروع عملیات استخراج</span>
+                            </div>
+                        </div>
+                        <p class="os-card-excerpt">اجرای اولین پروژه استخراج با موفقیت کامل</p>
+                        <div class="os-card-footer">
+                            <button class="os-view-details openModalBtn" data-year="1397">
+                                مشاهده جزئیات
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- آیتم 3: 1399 -->
+            <div class="os-timeline-item" data-year="1399">
+                <div class="os-timeline-marker">
+                    <span class="os-year-label">1399</span>
+                </div>
+                <div class="os-timeline-content">
+                    <div class="os-card" >
+                        <div class="os-card-header">
+                            <div class="os-card-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="os-card-meta">
+                                <h3 class="os-card-title">رشد و توسعه</h3>
+                                <span class="os-card-subtitle">گسترش فعالیت‌ها</span>
+                            </div>
+                        </div>
+                        <p class="os-card-excerpt">توسعه زیرساخت‌ها و افزایش ظرفیت تولید</p>
+                        <div class="os-card-footer">
+                            <button class="os-view-details openModalBtn" data-year="1399">
+                                مشاهده جزئیات
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- آیتم 4: 1401 -->
+            <div class="os-timeline-item os-item-alternate" data-year="1401">
+                <div class="os-timeline-marker">
+                    <span class="os-year-label">1401</span>
+                </div>
+                <div class="os-timeline-content">
+                    <div class="os-card" >
+                        <div class="os-card-header">
+                            <div class="os-card-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div class="os-card-meta">
+                                <h3 class="os-card-title">ورود به بازارهای جدید</h3>
+                                <span class="os-card-subtitle">توسعه بین‌المللی</span>
+                            </div>
+                        </div>
+                        <p class="os-card-excerpt">ورود به بازارهای منطقه‌ای و بین‌المللی</p>
+                        <div class="os-card-footer">
+                            <button class="os-view-details openModalBtn" data-year="1401">
+                                مشاهده جزئیات
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- آیتم 5: 1403 -->
+            <div class="os-timeline-item" data-year="1403">
+                <div class="os-timeline-marker os-marker-current">
+                    <span class="os-year-label">1403</span>
+                </div>
+                <div class="os-timeline-content">
+                    <div class="os-card os-card-current" >
+                        <div class="os-card-header">
+                            <div class="os-card-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <div class="os-card-meta">
+                                <h3 class="os-card-title">افق‌های جدید</h3>
+                                <span class="os-card-subtitle">نوآوری و پایداری</span>
+                            </div>
+                        </div>
+                        <p class="os-card-excerpt">تمرکز بر فناوری‌های نوین و توسعه پایدار</p>
+                        <div class="os-card-footer">
+                            <button class="os-view-details openModalBtn" data-year="1403">
+                                مشاهده جزئیات
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- بخش ادامه مسیر -->
+            <div class="os-continue-section">
+                <div class="os-continue-line"></div>
+                <div class="os-continue-badge">
+                    <div class="os-continue-icon">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <div class="os-continue-text">
+                        <h3>این مسیر ادامه دارد...</h3>
+                        <p>آینده‌ای روشن در انتظار ماست</p>
+                    </div>
+                </div>
+                <div class="os-continue-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- مودال‌ها -->
+    
+    <!-- مودال 1396 -->
+        <div class="mp-overlay" id="storyModal">
+        <div class="mp-modal" id="modalContainer">
+
+            <!-- هدر استیکی: خط طلایی + نوار پیشرفت + تب سال‌ها -->
+            <div class="mp-modal-header">
+                <div class="mp-gold-line"></div>
+                <div class="mp-scroll-progress" id="scrollProgress"></div>
+                <div class="mp-year-nav">
+                    <div class="mp-year-tabs" id="yearTabs"></div>
+                </div>
+            </div>
+
+            <!-- دکمه بستن -->
+            <button class="mp-close-btn modalCloseBtn"><i class="fas fa-times"></i></button>
+
+            <!-- محتوای اسکرول‌پذیر -->
+            <div class="mp-modal-scroll" id="modalScroll">
+                <div class="mp-modal-body" id="modalBody">
+                    <div class="mp-content-column" id="contentColumn">
+                        <div class="mp-content-header">
+                            <span class="mp-milestone-badge"><i class="far fa-star"></i> نقطه عطف</span>
+                            <h1 class="mp-content-title" id="modalTitle"></h1>
+                            <p class="mp-content-subtitle" id="modalSubtitle"></p>
+                        </div>
+                        <p class="mp-content-description" id="modalDescription"></p>
+                        <div class="mp-events-section">
+                            <h3 class="mp-events-title"><span class="mp-events-dot"></span> رویدادهای کلیدی</h3>
+                            <div class="mp-events-timeline" id="eventsTimeline"></div>
+                        </div>
+                    </div>
+                    <div class="mp-sidebar-column" id="sidebarColumn">
+                        <div class="mp-image-section">
+                            <div class="mp-image-wrapper" id="imageWrapper">
+                                <div class="mp-image-placeholder" id="imagePlaceholder">
+                                    <i class="fas fa-image"></i>
+                                    <span>تصویر در اینجا قرار می‌گیرد</span>
+                                </div>
+                                <img src="" alt="تصویر" class="mp-image" id="modalImage" style="display:none;">
+                                <div class="mp-image-overlay" id="imageOverlay">
+                                    <i class="fas fa-search-plus"></i>
+                                    <span>بزرگ‌نمایی</span>
+                                </div>
+                                <div class="mp-image-date-badge" id="modalDateBadge"></div>
+                            </div>
+                            <div class="mp-gallery" id="imageGallery"></div>
+                        </div>
+                        <div class="mp-progress-card">
+                            <div class="mp-progress-header">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>میزان پیشرفت پروژه‌ها</span>
+                            </div>
+                            <div class="mp-progress-list" id="progressList"></div>
+                        </div>
+                        <div class="mp-stats-row" id="statsRow"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+           <div class="mp-lightbox" id="lightbox">
+        <button class="mp-lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+        <button class="mp-lightbox-nav mp-lightbox-prev" id="lightboxPrev"><i class="fas fa-chevron-right"></i></button>
+        <button class="mp-lightbox-nav mp-lightbox-next" id="lightboxNext"><i class="fas fa-chevron-left"></i></button>
+        <img src="" alt="" class="mp-lightbox-image" id="lightboxImage">
+        <div class="mp-lightbox-caption" id="lightboxCaption"></div>
+        <div class="mp-lightbox-counter" id="lightboxCounter"></div>
+    </div>
+    </div>
+
+
+
+    <!-- مودال 1397 -->
+            <div class="mp-overlay" id="storyModal">
+        <div class="mp-modal" id="modalContainer">
+
+            <!-- هدر استیکی: خط طلایی + نوار پیشرفت + تب سال‌ها -->
+            <div class="mp-modal-header">
+                <div class="mp-gold-line"></div>
+                <div class="mp-scroll-progress" id="scrollProgress"></div>
+                <div class="mp-year-nav">
+                    <div class="mp-year-tabs" id="yearTabs"></div>
+                </div>
+            </div>
+
+            <!-- دکمه بستن -->
+            <button class="mp-close-btn modalCloseBtn"><i class="fas fa-times"></i></button>
+
+            <!-- محتوای اسکرول‌پذیر -->
+            <div class="mp-modal-scroll" id="modalScroll">
+                <div class="mp-modal-body" id="modalBody">
+                    <div class="mp-content-column" id="contentColumn">
+                        <div class="mp-content-header">
+                            <span class="mp-milestone-badge"><i class="far fa-star"></i> نقطه عطف</span>
+                            <h1 class="mp-content-title" id="modalTitle"></h1>
+                            <p class="mp-content-subtitle" id="modalSubtitle"></p>
+                        </div>
+                        <p class="mp-content-description" id="modalDescription"></p>
+                        <div class="mp-events-section">
+                            <h3 class="mp-events-title"><span class="mp-events-dot"></span> رویدادهای کلیدی</h3>
+                            <div class="mp-events-timeline" id="eventsTimeline"></div>
+                        </div>
+                    </div>
+                    <div class="mp-sidebar-column" id="sidebarColumn">
+                        <div class="mp-image-section">
+                            <div class="mp-image-wrapper" id="imageWrapper">
+                                <div class="mp-image-placeholder" id="imagePlaceholder">
+                                    <i class="fas fa-image"></i>
+                                    <span>تصویر در اینجا قرار می‌گیرد</span>
+                                </div>
+                                <img src="" alt="تصویر" class="mp-image" id="modalImage" style="display:none;">
+                                <div class="mp-image-overlay" id="imageOverlay">
+                                    <i class="fas fa-search-plus"></i>
+                                    <span>بزرگ‌نمایی</span>
+                                </div>
+                                <div class="mp-image-date-badge" id="modalDateBadge"></div>
+                            </div>
+                            <div class="mp-gallery" id="imageGallery"></div>
+                        </div>
+                        <div class="mp-progress-card">
+                            <div class="mp-progress-header">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>میزان پیشرفت پروژه‌ها</span>
+                            </div>
+                            <div class="mp-progress-list" id="progressList"></div>
+                        </div>
+                        <div class="mp-stats-row" id="statsRow"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+           <div class="mp-lightbox" id="lightbox">
+        <button class="mp-lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+        <button class="mp-lightbox-nav mp-lightbox-prev" id="lightboxPrev"><i class="fas fa-chevron-right"></i></button>
+        <button class="mp-lightbox-nav mp-lightbox-next" id="lightboxNext"><i class="fas fa-chevron-left"></i></button>
+        <img src="" alt="" class="mp-lightbox-image" id="lightboxImage">
+        <div class="mp-lightbox-caption" id="lightboxCaption"></div>
+        <div class="mp-lightbox-counter" id="lightboxCounter"></div>
+    </div>
+    </div>
+
+    <!-- مودال 1399 -->
+     <div class="mp-overlay" id="storyModal">
+        <div class="mp-modal" id="modalContainer">
+
+            <!-- هدر استیکی: خط طلایی + نوار پیشرفت + تب سال‌ها -->
+            <div class="mp-modal-header">
+                <div class="mp-gold-line"></div>
+                <div class="mp-scroll-progress" id="scrollProgress"></div>
+                <div class="mp-year-nav">
+                    <div class="mp-year-tabs" id="yearTabs"></div>
+                </div>
+            </div>
+
+            <!-- دکمه بستن -->
+            <button class="mp-close-btn modalCloseBtn"><i class="fas fa-times"></i></button>
+
+            <!-- محتوای اسکرول‌پذیر -->
+            <div class="mp-modal-scroll" id="modalScroll">
+                <div class="mp-modal-body" id="modalBody">
+                    <div class="mp-content-column" id="contentColumn">
+                        <div class="mp-content-header">
+                            <span class="mp-milestone-badge"><i class="far fa-star"></i> نقطه عطف</span>
+                            <h1 class="mp-content-title" id="modalTitle"></h1>
+                            <p class="mp-content-subtitle" id="modalSubtitle"></p>
+                        </div>
+                        <p class="mp-content-description" id="modalDescription"></p>
+                        <div class="mp-events-section">
+                            <h3 class="mp-events-title"><span class="mp-events-dot"></span> رویدادهای کلیدی</h3>
+                            <div class="mp-events-timeline" id="eventsTimeline"></div>
+                        </div>
+                    </div>
+                    <div class="mp-sidebar-column" id="sidebarColumn">
+                        <div class="mp-image-section">
+                            <div class="mp-image-wrapper" id="imageWrapper">
+                                <div class="mp-image-placeholder" id="imagePlaceholder">
+                                    <i class="fas fa-image"></i>
+                                    <span>تصویر در اینجا قرار می‌گیرد</span>
+                                </div>
+                                <img src="" alt="تصویر" class="mp-image" id="modalImage" style="display:none;">
+                                <div class="mp-image-overlay" id="imageOverlay">
+                                    <i class="fas fa-search-plus"></i>
+                                    <span>بزرگ‌نمایی</span>
+                                </div>
+                                <div class="mp-image-date-badge" id="modalDateBadge"></div>
+                            </div>
+                            <div class="mp-gallery" id="imageGallery"></div>
+                        </div>
+                        <div class="mp-progress-card">
+                            <div class="mp-progress-header">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>میزان پیشرفت پروژه‌ها</span>
+                            </div>
+                            <div class="mp-progress-list" id="progressList"></div>
+                        </div>
+                        <div class="mp-stats-row" id="statsRow"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+           <div class="mp-lightbox" id="lightbox">
+        <button class="mp-lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+        <button class="mp-lightbox-nav mp-lightbox-prev" id="lightboxPrev"><i class="fas fa-chevron-right"></i></button>
+        <button class="mp-lightbox-nav mp-lightbox-next" id="lightboxNext"><i class="fas fa-chevron-left"></i></button>
+        <img src="" alt="" class="mp-lightbox-image" id="lightboxImage">
+        <div class="mp-lightbox-caption" id="lightboxCaption"></div>
+        <div class="mp-lightbox-counter" id="lightboxCounter"></div>
+    </div>
+    </div>
+
+    <!-- مودال 1401 -->
+      <div class="mp-overlay" id="storyModal">
+        <div class="mp-modal" id="modalContainer">
+
+            <!-- هدر استیکی: خط طلایی + نوار پیشرفت + تب سال‌ها -->
+            <div class="mp-modal-header">
+                <div class="mp-gold-line"></div>
+                <div class="mp-scroll-progress" id="scrollProgress"></div>
+                <div class="mp-year-nav">
+                    <div class="mp-year-tabs" id="yearTabs"></div>
+                </div>
+            </div>
+
+            <!-- دکمه بستن -->
+            <button class="mp-close-btn modalCloseBtn"><i class="fas fa-times"></i></button>
+
+            <!-- محتوای اسکرول‌پذیر -->
+            <div class="mp-modal-scroll" id="modalScroll">
+                <div class="mp-modal-body" id="modalBody">
+                    <div class="mp-content-column" id="contentColumn">
+                        <div class="mp-content-header">
+                            <span class="mp-milestone-badge"><i class="far fa-star"></i> نقطه عطف</span>
+                            <h1 class="mp-content-title" id="modalTitle"></h1>
+                            <p class="mp-content-subtitle" id="modalSubtitle"></p>
+                        </div>
+                        <p class="mp-content-description" id="modalDescription"></p>
+                        <div class="mp-events-section">
+                            <h3 class="mp-events-title"><span class="mp-events-dot"></span> رویدادهای کلیدی</h3>
+                            <div class="mp-events-timeline" id="eventsTimeline"></div>
+                        </div>
+                    </div>
+                    <div class="mp-sidebar-column" id="sidebarColumn">
+                        <div class="mp-image-section">
+                            <div class="mp-image-wrapper" id="imageWrapper">
+                                <div class="mp-image-placeholder" id="imagePlaceholder">
+                                    <i class="fas fa-image"></i>
+                                    <span>تصویر در اینجا قرار می‌گیرد</span>
+                                </div>
+                                <img src="" alt="تصویر" class="mp-image" id="modalImage" style="display:none;">
+                                <div class="mp-image-overlay" id="imageOverlay">
+                                    <i class="fas fa-search-plus"></i>
+                                    <span>بزرگ‌نمایی</span>
+                                </div>
+                                <div class="mp-image-date-badge" id="modalDateBadge"></div>
+                            </div>
+                            <div class="mp-gallery" id="imageGallery"></div>
+                        </div>
+                        <div class="mp-progress-card">
+                            <div class="mp-progress-header">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>میزان پیشرفت پروژه‌ها</span>
+                            </div>
+                            <div class="mp-progress-list" id="progressList"></div>
+                        </div>
+                        <div class="mp-stats-row" id="statsRow"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+           <div class="mp-lightbox" id="lightbox">
+        <button class="mp-lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+        <button class="mp-lightbox-nav mp-lightbox-prev" id="lightboxPrev"><i class="fas fa-chevron-right"></i></button>
+        <button class="mp-lightbox-nav mp-lightbox-next" id="lightboxNext"><i class="fas fa-chevron-left"></i></button>
+        <img src="" alt="" class="mp-lightbox-image" id="lightboxImage">
+        <div class="mp-lightbox-caption" id="lightboxCaption"></div>
+        <div class="mp-lightbox-counter" id="lightboxCounter"></div>
+    </div>
+    </div>
+
+    <!-- مودال 1403 -->
+      <div class="mp-overlay" id="storyModal">
+        <div class="mp-modal" id="modalContainer">
+
+            <!-- هدر استیکی: خط طلایی + نوار پیشرفت + تب سال‌ها -->
+            <div class="mp-modal-header">
+                <div class="mp-gold-line"></div>
+                <div class="mp-scroll-progress" id="scrollProgress"></div>
+                <div class="mp-year-nav">
+                    <div class="mp-year-tabs" id="yearTabs"></div>
+                </div>
+            </div>
+
+            <!-- دکمه بستن -->
+            <button class="mp-close-btn modalCloseBtn"><i class="fas fa-times"></i></button>
+
+            <!-- محتوای اسکرول‌پذیر -->
+            <div class="mp-modal-scroll" id="modalScroll">
+                <div class="mp-modal-body" id="modalBody">
+                    <div class="mp-content-column" id="contentColumn">
+                        <div class="mp-content-header">
+                            <span class="mp-milestone-badge"><i class="far fa-star"></i> نقطه عطف</span>
+                            <h1 class="mp-content-title" id="modalTitle"></h1>
+                            <p class="mp-content-subtitle" id="modalSubtitle"></p>
+                        </div>
+                        <p class="mp-content-description" id="modalDescription"></p>
+                        <div class="mp-events-section">
+                            <h3 class="mp-events-title"><span class="mp-events-dot"></span> رویدادهای کلیدی</h3>
+                            <div class="mp-events-timeline" id="eventsTimeline"></div>
+                        </div>
+                    </div>
+                    <div class="mp-sidebar-column" id="sidebarColumn">
+                        <div class="mp-image-section">
+                            <div class="mp-image-wrapper" id="imageWrapper">
+                                <div class="mp-image-placeholder" id="imagePlaceholder">
+                                    <i class="fas fa-image"></i>
+                                    <span>تصویر در اینجا قرار می‌گیرد</span>
+                                </div>
+                                <img src="" alt="تصویر" class="mp-image" id="modalImage" style="display:none;">
+                                <div class="mp-image-overlay" id="imageOverlay">
+                                    <i class="fas fa-search-plus"></i>
+                                    <span>بزرگ‌نمایی</span>
+                                </div>
+                                <div class="mp-image-date-badge" id="modalDateBadge"></div>
+                            </div>
+                            <div class="mp-gallery" id="imageGallery"></div>
+                        </div>
+                        <div class="mp-progress-card">
+                            <div class="mp-progress-header">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>میزان پیشرفت پروژه‌ها</span>
+                            </div>
+                            <div class="mp-progress-list" id="progressList"></div>
+                        </div>
+                        <div class="mp-stats-row" id="statsRow"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+           <div class="mp-lightbox" id="lightbox">
+        <button class="mp-lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+        <button class="mp-lightbox-nav mp-lightbox-prev" id="lightboxPrev"><i class="fas fa-chevron-right"></i></button>
+        <button class="mp-lightbox-nav mp-lightbox-next" id="lightboxNext"><i class="fas fa-chevron-left"></i></button>
+        <img src="" alt="" class="mp-lightbox-image" id="lightboxImage">
+        <div class="mp-lightbox-caption" id="lightboxCaption"></div>
+        <div class="mp-lightbox-counter" id="lightboxCounter"></div>
+    </div>
+    </div>
+
+
+      <div style="height: 3rem; background: #0a0a0a;"></div>
+
+    <footer class="site-footer" style="position: relative;bottom: 8rem !important;">
+        <div class="footer-top-pattern">
+            <svg viewBox="0 0 1440 650" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,40 C300,160 400,-60 1440,90" fill="none" stroke="rgba(201,168,76,0.32)" stroke-width="1.5"/>
+                <path d="M0,60 C310,180 410,-40 1440,110" fill="none" stroke="rgba(201,168,76,0.22)" stroke-width="1.2"/>
+                <path d="M0,80 C320,200 420,-20 1440,130" fill="none" stroke="rgba(201,168,76,0.16)" stroke-width="1"/>
+                <path d="M0,100 C330,220 430,0 1440,150" fill="none" stroke="rgba(201,168,76,0.11)" stroke-width="1"/>
+                <path d="M0,120 C340,240 440,20 1440,170" fill="none" stroke="rgba(201,168,76,0.07)" stroke-width="1"/>
+                
+                <path d="M0,220 C400,30 600,330 1440,180" fill="none" stroke="rgba(201,168,76,0.28)" stroke-width="1.5"/>
+                <path d="M0,245 C410,55 610,355 1440,205" fill="none" stroke="rgba(201,168,76,0.20)" stroke-width="1.2"/>
+                <path d="M0,270 C420,80 620,380 1440,230" fill="none" stroke="rgba(201,168,76,0.14)" stroke-width="1"/>
+                <path d="M0,295 C430,105 630,405 1440,255" fill="none" stroke="rgba(201,168,76,0.09)" stroke-width="1"/>
+                <path d="M0,320 C440,130 640,430 1440,280" fill="none" stroke="rgba(201,168,76,0.06)" stroke-width="1"/>
+
+                <path d="M0,420 C500,580 800,130 1440,380" fill="none" stroke="rgba(201,168,76,0.25)" stroke-width="1.5"/>
+                <path d="M0,445 C510,605 810,155 1440,405" fill="none" stroke="rgba(201,168,76,0.18)" stroke-width="1.2"/>
+                <path d="M0,470 C520,630 820,180 1440,430" fill="none" stroke="rgba(201,168,76,0.12)" stroke-width="1"/>
+                <path d="M0,495 C530,655 830,205 1440,455" fill="none" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+                <path d="M0,520 C540,675 840,230 1440,480" fill="none" stroke="rgba(201,168,76,0.05)" stroke-width="1"/>
+            </svg>
+        </div>
+
+        <div class="footer-container">
+            <div class="footer-main">
+                
+                <div class="footer-col footer-brand">
+                    <div class="footer-logo">
+                        <div class="footer-logo">
+                            <img src="images/Asset 1.png" alt="کافه معدن - Cafe Madan">
+                        </div>
+                    </div>
+                    <p class="footer-desc">
+                        کافه معدن، اکوسیستم جامع نوآوری، آموزش، مشاوره و توسعه کسب‌وکارهای معدنی در ایران
+                    </p>
+                    
+                    <div class="footer-social">
+                        <h4 class="social-title">شبکه‌های اجتماعی ما</h4>
+                        <div class="social-links">
+                            <a href="https://www.instagram.com/cafemadan_official/?hl=en" class="social-link" aria-label="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/company/cafemadanofficial/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPOTM2NjE5NzQzMzkyNDU5AAGno-MJZFKBWafqtH5XJ0cYtlppnlG0RKQEsJx5RGIUmrALfQGjsswHOVIt8Mc_aem_hUCE9BTPhNIYxbwNOilqFw" class="social-link" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="https://nshn.ir/0b_bvknBexOsJ0" class="social-link" aria-label="Telegram">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </a>
+                           
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-title">
+                        <span class="title-icon"><i class="fas fa-building"></i></span>
+                        شرکت‌های تابعه
+                    </h4>
+                    <ul class="footer-links">
+                        <li>
+                            <a href="https://www.instagram.com/madan.daad/" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                معدن داد
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/madan.moshaverr/" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                معدن مشاور
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/madan.academy/" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                معدن آکادمی
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/madan_ads/" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                معدن ادز
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-title">
+                        <span class="title-icon"><i class="fas fa-link"></i></span>
+                        دسترسی سریع
+                    </h4>
+                    <ul class="footer-links">
+                        <li>
+                            <a href="aboutus.html" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                درباره ما
+                            </a>
+                        </li>
+                        <li>
+                            <a href="khadamat.html" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                خدمات
+                            </a>
+                        </li>
+                        <li>
+                            <a href="articels.html" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                بلاگ
+                            </a>
+                        </li>
+                        <li>
+                            <a href="call.html" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                تماس با ما
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="footer-col footer-contact">
+                    <h4 class="footer-title">
+                        <span class="title-icon"><i class="fas fa-address-card"></i></span>
+                        ارتباط با ما
+                    </h4>
+                    
+                    <div class="contact-items">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">شماره تماس</span>
+                                <a href="tel:02188029006" class="contact-value">
+                                    ۰۲۱ - ۸۸۰۲۹۰۰۶
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">پست الکترونیک</span>
+                                <a href="info@cafemadan.com" class="contact-value">
+                                    info@cafemadan.com
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">آدرس</span>
+                                <a href="https://nshn.ir/0b_bvknBexOsJ0" style="cursor: pointer;" class="contact-value address-text">
+                                    جلال آل احمد، خیابان احمد احمدی،
+                                    دانشکده اقتصاد دانشگاه تهران
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p class="copyright">
+                        © کلیه حقوق این وب‌سایت متعلق به کافه معدن می‌باشد.
+                    </p>
+                    <p class="footer-separator">|</p>
+                    <p class="designed-by">
+                         طراحی و توسعه توسط آرمان یوسفی و آرین چایچی
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-glow footer-glow-1"></div>
+        <div class="footer-glow footer-glow-2"></div>
+    </footer>
+
+
+    <section class="consultation">
+    <div class="content" style="display: flex;align-items: center;justify-content: center;">
+
+        <div class="title-box" style="padding: 0 1rem;">
+            <span style="color: #d4a24c;">FREE CONSULTATION</span>
+            <h2 style="color: #f1f1f1;font-size: 1.5rem;">دریافت مشاوره رایگان</h2>
+        </div>
+
+          <form class="consult-banner__form">
+
+        <div class="consult-banner__field">
+            <input type="text" placeholder="نام و نام خانوادگی" style="font-family: 'Vazirmatn', sans-serif;font-size: 20px;">
+            <i class="fas fa-user"></i>
+        </div>
+
+        <div class="consult-banner__field">
+            <input type="tel" placeholder="شماره تماس" style="font-family: 'Vazirmatn', sans-serif;font-size: 20px;">
+            <i class="fas fa-phone"></i>
+        </div>
+
+        <button class="consult-banner__btn" style="font-family: 'Vazirmatn', sans-serif;">
+            ثبت درخواست
+            <i class="fas fa-arrow-left"></i>
+        </button>
+
+    </form> 
+
+    </div>
+</section>
+    <script src="./js/storyus.js"></script>
+    <script src="./js/navbar.js"></script>
+    <script src="./js/footer.js"></script>
+    <script>
+        function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+// تابع بستن مودال
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// بستن مودال با کلید Escape
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const activeModal = document.querySelector('.os-modal.active');
+        if (activeModal) {
+            activeModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
+});
+
+// انیمیشن ورود آیتم‌ها هنگام اسکرول
+document.addEventListener('DOMContentLoaded', () => {
+    const timelineItems = document.querySelectorAll('.os-timeline-item');
+    const continueSection = document.querySelector('.os-continue-section');
+    
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.2
+    };
+    
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    // مشاهده آیتم‌های تایم‌لاین
+    timelineItems.forEach(item => {
+        observer.observe(item);
+    });
+    
+    // مشاهده بخش ادامه مسیر
+    if (continueSection) {
+        observer.observe(continueSection);
+    }
+    
+    // افکت پارالاکس برای پس‌زمینه
+    const orbs = document.querySelectorAll('.os-gradient-orb');
+    const particles = document.querySelectorAll('.os-particle');
+    
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        
+        orbs.forEach((orb, index) => {
+            const speed = (index + 1) * 0.02;
+            orb.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+        
+        particles.forEach((particle, index) => {
+            const speed = (index + 1) * 0.05;
+            particle.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+    });
+    
+    // افکت حرکت موس برای ذرات
+    document.addEventListener('mousemove', (e) => {
+        const mouseX = e.clientX / window.innerWidth;
+        const mouseY = e.clientY / window.innerHeight;
+        
+        particles.forEach((particle, index) => {
+            const speed = (index + 1) * 2;
+            const x = (mouseX - 0.5) * speed;
+            const y = (mouseY - 0.5) * speed;
+            particle.style.transform = `translate(${x}px, ${y}px)`;
+        });
+    });
+});
+    
+
+    </script>
+
+
+
+
+<script>
+    // مخفی کردن بخش مشاوره هنگام باز شدن مودال
+document.querySelectorAll('.mp-overlay').forEach(overlay => {
+    const consultation = document.querySelector('.consultation');
+    
+    overlay.addEventListener('transitionend', () => {
+        if (overlay.classList.contains('active') && consultation) {
+            consultation.style.opacity = '0';
+            consultation.style.visibility = 'hidden';
+        }
+    });
+});
+
+// وقتی مودال بسته شد، بخش مشاوره دوباره ظاهر شود
+document.querySelectorAll('.mp-overlay').forEach(overlay => {
+    overlay.addEventListener('transitionend', () => {
+        const consultation = document.querySelector('.consultation');
+        if (!overlay.classList.contains('active') && consultation) {
+            consultation.style.opacity = '1';
+            consultation.style.visibility = 'visible';
+        }
+    });
+});
+</script>
+
+
+    <script>
+        function toPersianNum(num) {
+            const d = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+            return num.toString().replace(/\d/g, c => d[c]);
+        }
+
+        const storyData = {
+            '1396': {
+                year: '1396', title: 'آغاز فعالیت', subtitle: 'تاسیس و شروع کار',
+                dateBadge: 'تیر ۱۳۹۶',
+                images: [
+                    './images/heavy-machinery-used-construction-industry-engineering (1).jpg',
+                    './images/view-heavy-machinery-used-construction-industry.jpg',
+                    
+                ],
+                description: 'داستان ما از یک ایده ساده اما بزرگ شروع شد. در تیر ۱۳۹۶، با هدف ارائه راهکارهای نوآورانه در حوزه معدن، شرکت خود را تاسیس کردیم. با یک تیم کوچک اما پرانرژی، کار خود را آغاز کردیم و اولین پروژه‌های استخراج را با موفقیت به پایان رساندیم.',
+                events: [
+                    { date: 'تیر ۱۳۹۶', title: 'تاسیس شرکت', desc: 'ثبت رسمی شرکت و آغاز فعالیت در حوزه معدن' },
+                    { date: 'شهریور ۱۳۹۶', title: 'اجرای اولین پروژه', desc: 'دریافت و موفقیت در اولین پروژه استخراج' },
+                    { date: 'دی ۱۳۹۶', title: 'تشکیل تیم تخصصی', desc: 'گسترش تیم و جذب متخصصان حوزه معدن' },
+                    { date: 'اسفند ۱۳۹۶', title: 'توسعه خدمات', desc: 'افزودن خدمات جدید به سبد محصولات شرکت' }
+                ],
+                progress: [
+                    { label: 'تکمیل شده', value: '۸ پروژه' },
+                    { label: 'در حال اجرا', value: '۵ پروژه' },
+                    { label: 'برنامه‌ریزی شده', value: '۱۲ پروژه' }
+                ],
+                stats: [
+                    { icon: 'fas fa-users', value: 12, suffix: '', label: 'اعضای تیم' },
+                    { icon: 'fas fa-briefcase', value: 25, suffix: '+', label: 'پروژه انجام شده' },
+                    { icon: 'fas fa-trophy', value: 3, suffix: '', label: 'افتخارات' }
+                ]
+            },
+            '1397': {
+                year: '1397', title: 'رشد اولیه', subtitle: 'تثبیت جایگاه در بازار',
+                dateBadge: 'فروردین ۱۳۹۷',
+                images: [
+                    './images/omid-roshan-Evss0Whf5OI-unsplash.jpg',
+                     './images/lars-portjanow-Q7Qz1JkjHqQ-unsplash.jpg',
+                      './images/view-heavy-machinery-used-construction-industry.jpg',
+                ],
+                description: 'سال ۱۳۹۷ سال تثبیت و رشد پایدار بود. ما توانستیم جایگاه خود را در بازار معدن کشور مستحکم کنیم و با ارائه خدمات باکیفیت، اعتماد مشتریان زیادی را جلب نماییم. تیم ما به ۲۰ نفر افزایش یافت.',
+                events: [
+                    { date: 'فروردین ۱۳۹۷', title: 'افزایش سرمایه', desc: 'جذب سرمایه‌گذار جدید و افزایش بودجه شرکت' },
+                    { date: 'تیر ۱۳۹۷', title: 'قرارداد بزرگ', desc: 'امضای قرارداد بزرگ استخراج با شرکت ملی فولاد' },
+                    { date: 'آبان ۱۳۹۷', title: 'جذب نخبگان', desc: 'استخدام مهندسان ارشد از دانشگاه‌های برتر' },
+                    { date: 'بهمن ۱۳۹۷', title: 'افتتاح شعبه', desc: 'افتتاح اولین دفتر نمایندگی در کرمان' }
+                ],
+                progress: [
+                    { label: 'تکمیل شده', value: '۱۴ پروژه' },
+                    { label: 'در حال اجرا', value: '۸ پروژه' },
+                    { label: 'برنامه‌ریزی شده', value: '۸ پروژه' }
+                ],
+                stats: [
+                    { icon: 'fas fa-users', value: 20, suffix: '', label: 'اعضای تیم' },
+                    { icon: 'fas fa-briefcase', value: 30, suffix: '+', label: 'پروژه انجام شده' },
+                    { icon: 'fas fa-trophy', value: 5, suffix: '', label: 'افتخارات' }
+                ]
+            },
+            '1398': {
+                year: '1398', title: 'توسعه و گسترش', subtitle: 'ورود به بازارهای جدید',
+                dateBadge: 'مهر ۱۳۹۸',
+                images: [
+                    './images/lars-portjanow-Q7Qz1JkjHqQ-unsplash.jpg',
+                    './images/pexels-tomfisk-6542371.jpg',
+                    './images/sp2.jpg'
+                ],
+                description: 'در سال ۱۳۹۸، وارد فاز جدیدی از رشد شدیم. تیم ما به بیش از ۳۰ نفر رسید و پروژه‌های متعددی در سراسر کشور اجرا کردیم. گواهینامه‌های بین‌المللی کیفیت را دریافت نمودیم.',
+                events: [
+                    { date: 'مهر ۱۳۹۸', title: 'گسترش تیم به ۳۰ نفر', desc: 'جذب نیروهای متخصص و توسعه ساختار سازمانی' },
+                    { date: 'آذر ۱۳۹۸', title: 'ورود به بازارهای جدید', desc: 'شروع فعالیت در استان‌های دیگر کشور' },
+                    { date: 'بهمن ۱۳۹۸', title: 'دریافت گواهینامه ISO', desc: 'اخذ استانداردهای بین‌المللی کیفیت' },
+                    { date: 'اسفند ۱۳۹۸', title: 'دفتر مرکزی جدید', desc: 'انتقال به دفتر مرکزی بزرگ‌تر و مدرن‌تر' }
+                ],
+                progress: [
+                    { label: 'تکمیل شده', value: '۲۲ پروژه' },
+                    { label: 'در حال اجرا', value: '۱۰ پروژه' },
+                    { label: 'برنامه‌ریزی شده', value: '۸ پروژه' }
+                ],
+                stats: [
+                    { icon: 'fas fa-users', value: 32, suffix: '', label: 'اعضای تیم' },
+                    { icon: 'fas fa-briefcase', value: 40, suffix: '+', label: 'پروژه انجام شده' },
+                    { icon: 'fas fa-trophy', value: 7, suffix: '', label: 'افتخارات' }
+                ]
+            },
+            '1399': {
+                year: '1399', title: 'نوآوری و فناوری', subtitle: 'دیجیتالی‌سازی فرآیندها',
+                dateBadge: 'اردیبهشت ۱۳۹۹',
+                images: [
+                    './images/sp2.jpg',
+                    './images/view-heavy-machinery-used-construction-industry.jpg',
+                    './images/istockphoto-1400437847-1024x1024.jpg'
+                ],
+                description: 'سال ۱۳۹۹ را با تمرکز بر نوآوری آغاز کردیم. دیجیتالی‌سازی فرآیندهای معدن، استفاده از هوش مصنوعی در اکتشاف، و راه‌اندازی سامانه مدیریت یکپارچه از دستاوردهای کلیدی این سال بودند.',
+                events: [
+                    { date: 'اردیبهشت ۱۳۹۹', title: 'راه‌اندازی R&D', desc: 'تاسیس آزمایشگاه تحقیق و توسعه هوش مصنوعی' },
+                    { date: 'مرداد ۱۳۹۹', title: 'نرم‌افزار اختصاصی', desc: 'طراحی و توسعه نرم‌افزار مدیریت معدن' },
+                    { date: 'آبان ۱۳۹۹', title: 'پتنت ثبت شد', desc: 'ثبت اختراع در زمینه روش‌های نوین استخراج' },
+                    { date: 'بهمن ۱۳۹۹', title: 'جایزه نوآوری', desc: 'کسب جایزه ملی نوآوری در صنعت معدن' }
+                ],
+                progress: [
+                    { label: 'تکمیل شده', value: '۳۰ پروژه' },
+                    { label: 'در حال اجرا', value: '۱۲ پروژه' },
+                    { label: 'برنامه‌ریزی شده', value: '۸ پروژه' }
+                ],
+                stats: [
+                    { icon: 'fas fa-users', value: 45, suffix: '', label: 'اعضای تیم' },
+                    { icon: 'fas fa-briefcase', value: 50, suffix: '+', label: 'پروژه انجام شده' },
+                    { icon: 'fas fa-trophy', value: 11, suffix: '', label: 'افتخارات' }
+                ]
+            },
+            '1400': {
+                year: '1400', title: 'شکوفایی', subtitle: 'رسیدن به اوج توانمندی',
+                dateBadge: 'خرداد ۱۴۰۰',
+                images: [
+                    './images/istockphoto-1400437847-1024x1024.jpg',
+                    './images/istockphoto-507399938-612x612.jpg',
+                    './images/GE_4530_Shutterstock_1077721433_RV.jpg'
+                ],
+                description: 'سال ۱۴۰۰ نقطه شکوفایی ما بود. با بیش از ۵۰ نفر تیم متخصص، پروژه‌های بزرگ ملی را با موفقیت اجرا کردیم. نام ما به عنوان یکی از برترین‌های صنعت معدن شناخته شد.',
+                events: [
+                    { date: 'خرداد ۱۴۰۰', title: 'پروژه ملی', desc: 'آغاز بزرگ‌ترین پروژه ملی استخراج مس' },
+                    { date: 'شهریور ۱۴۰۰', title: 'مجمع سالانه', desc: 'برگزاری مجمع عمومی با حضور سهامداران' },
+                    { date: 'آذر ۱۴۰۰', title: 'افتتاح کارخانه', desc: 'افتتاح کارخانه فرآوری مواد معدنی' },
+                    { date: 'اسفند ۱۴۰۰', title: 'رکورد تولید', desc: 'ثبت رکورد تولید سالانه شرکت' }
+                ],
+                progress: [
+                    { label: 'تکمیل شده', value: '۴۲ پروژه' },
+                    { label: 'در حال اجرا', value: '۱۰ پروژه' },
+                    { label: 'برنامه‌ریزی شده', value: '۸ پروژه' }
+                ],
+                stats: [
+                    { icon: 'fas fa-users', value: 58, suffix: '', label: 'اعضای تیم' },
+                    { icon: 'fas fa-briefcase', value: 60, suffix: '+', label: 'پروژه انجام شده' },
+                    { icon: 'fas fa-trophy', value: 16, suffix: '', label: 'افتخارات' }
+                ]
+            },
+            '1401': {
+                year: '1401', title: 'چشم‌انداز آینده', subtitle: 'گام به سوی بین‌المللی',
+                dateBadge: 'تیر ۱۴۰۱',
+                images: [
+                    './images/GE_4530_Shutterstock_1077721433_RV.jpg',
+                    './images/istockphoto-507399938-612x612.jpg',
+                    './images/heavy-machinery-used-construction-industry-engineering.jpg'
+                ],
+                description: 'در سال ۱۴۰۱، نگاه ما فراتر از مرزها رفت. مذاکرات با شرکای بین‌المللی، توسعه صادرات، و ورود به بازارهای منطقه‌ای در دستور کار قرار گرفت. آینده‌ای درخشان در انتظار ماست.',
+                events: [
+                    { date: 'تیر ۱۴۰۱', title: 'مذاکره بین‌المللی', desc: 'آغاز مذاکرات با شرکای خارجی' },
+                    { date: 'مهر ۱۴۰۱', title: 'اولین صادرات', desc: 'ارسال اولین محموله صادراتی مواد معدنی' },
+                    { date: 'بهمن ۱۴۰۱', title: 'جایزه بهترین شرکت', desc: 'کسب عنوان بهترین شرکت معدنی سال' },
+                    { date: 'اسفند ۱۴۰۱', title: 'طرح توسعه ۵ ساله', desc: 'تصویب و آغاز اجرای طرح توسعه استراتژیک' }
+                ],
+                progress: [
+                    { label: 'تکمیل شده', value: '۵۵ پروژه' },
+                    { label: 'در حال اجرا', value: '۸ پروژه' },
+                    { label: 'برنامه‌ریزی شده', value: '۷ پروژه' }
+                ],
+                stats: [
+                    { icon: 'fas fa-users', value: 72, suffix: '', label: 'اعضای تیم' },
+                    { icon: 'fas fa-briefcase', value: 70, suffix: '+', label: 'پروژه انجام شده' },
+                    { icon: 'fas fa-trophy', value: 22, suffix: '', label: 'افتخارات' }
+                ]
+            }
+        };
+
+        let currentYear = '1396';
+        let activeImageIndex = 0;
+        let lightboxOpen = false;
+        let isTransitioning = false;
+
+        /* ساخت تب‌های سال */
+        function buildYearTabs() {
+            const container = document.getElementById('yearTabs');
+            container.innerHTML = '';
+            Object.keys(storyData).forEach(year => {
+                const btn = document.createElement('button');
+                btn.className = 'mp-year-tab' + (year === currentYear ? ' active' : '');
+                btn.textContent = toPersianNum(year);
+                btn.dataset.year = year;
+                btn.addEventListener('click', () => switchYear(year));
+                container.appendChild(btn);
+            });
+        }
+
+        /* بارگذاری تصویر */
+        function loadImage(src) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(src);
+                img.onerror = () => reject(new Error('تصویر لود نشد'));
+                img.src = src;
+            });
+        }
+
+        /* تنظیم تصویر اصلی */
+        async function setMainImage(src, animate) {
+            const img = document.getElementById('modalImage');
+            const wrapper = document.getElementById('imageWrapper');
+            if (animate) {
+                img.style.opacity = '0';
+                await new Promise(r => setTimeout(r, 250));
+            }
+            img.style.display = 'none';
+            wrapper.classList.remove('image-loaded');
+            try {
+                await loadImage(src);
+                img.src = src;
+                img.style.display = 'block';
+                wrapper.classList.add('image-loaded');
+                img.style.opacity = '1';
+            } catch (e) {}
+        }
+
+        /* ساخت گالری */
+        function buildGallery(images) {
+            const container = document.getElementById('imageGallery');
+            container.innerHTML = '';
+            images.forEach((src, i) => {
+                const thumb = document.createElement('div');
+                thumb.className = 'mp-gallery-thumb' + (i === 0 ? ' active' : '');
+                thumb.innerHTML = `
+                    <div class="mp-gallery-thumb-placeholder"><i class="fas fa-image"></i></div>
+                    <img src="${src}" alt="تصویر ${toPersianNum(i + 1)}" style="display:none;">
+                `;
+                thumb.addEventListener('click', () => {
+                    if (i === activeImageIndex) return;
+                    activeImageIndex = i;
+                    setMainImage(src, true);
+                    container.querySelectorAll('.mp-gallery-thumb').forEach((t, j) => {
+                        t.classList.toggle('active', j === i);
+                    });
+                });
+                container.appendChild(thumb);
+                const thumbImg = thumb.querySelector('img');
+                loadImage(src).then(() => {
+                    thumbImg.style.display = 'block';
+                    thumb.querySelector('.mp-gallery-thumb-placeholder').style.display = 'none';
+                }).catch(() => {});
+            });
+        }
+
+        /* شمارنده متحرک */
+        function animateCounter(el, target, suffix, duration) {
+            duration = duration || 1000;
+            const start = performance.now();
+            function update(now) {
+                const progress = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = Math.round(target * eased);
+                console.log(el, target);
+                el.textContent = (suffix || '') + toPersianNum(current);
+                if (progress < 1) requestAnimationFrame(update);
+            }
+            requestAnimationFrame(update);
+        }
+
+        /* ساخت پیشرفت — فقط عدد */
+        function buildProgress(progressData) {
+            const container = document.getElementById('progressList');
+            container.innerHTML = '';
+            progressData.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'mp-progress-item';
+                div.innerHTML = `
+                    <span class="mp-progress-label">${item.label}</span>
+                    <span class="mp-progress-value">${item.value ?? 0}</span>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        /* ساخت آمار */
+        function buildStats(statsData) {
+            const container = document.getElementById('statsRow');
+            container.innerHTML = '';
+            statsData.forEach((item, i) => {
+                const card = document.createElement('div');
+                card.className = 'mp-stat-card';
+                card.innerHTML = `
+                    <i class="${item.icon}"></i>
+                    <span class="mp-stat-value">۰</span>
+                    <span class="mp-stat-label">${item.label}</span>
+                `;
+                container.appendChild(card);
+                setTimeout(() => {
+                    
+                    animateCounter(card.querySelector('.mp-stat-value'), item.value, item.suffix, 1200);
+                }, 400 + i * 150);
+            });
+        }
+
+        /* ساخت رویدادها */
+        function buildEvents(events) {
+            const container = document.getElementById('eventsTimeline');
+            container.innerHTML = '';
+            events.forEach((event, i) => {
+                const div = document.createElement('div');
+                div.className = 'mp-event-item';
+                div.innerHTML = `
+                    <div class="mp-event-date">${event.date}</div>
+                    <div class="mp-event-line"><span class="mp-event-dot"></span></div>
+                    <div class="mp-event-info">
+                        <h4 class="mp-event-title">${event.title}</h4>
+                        <p class="mp-event-desc">${event.desc}</p>
+                    </div>
+                `;
+                container.appendChild(div);
+                setTimeout(() => div.classList.add('visible'), 200 + i * 120);
+            });
+        }
+
+        /* رندر محتوا */
+        function renderContent(year) {
+            const data = storyData[year];
+            if (!data) return;
+            activeImageIndex = 0;
+            document.getElementById('modalTitle').textContent = data.title;
+            document.getElementById('modalSubtitle').textContent = data.subtitle;
+            document.getElementById('modalDateBadge').innerHTML = '<i class="far fa-calendar-alt"></i> ' + data.dateBadge;
+            document.getElementById('modalDescription').textContent = data.description;
+            setMainImage(data.images[0], false);
+            buildGallery(data.images);
+            buildProgress(data.progress);
+            buildStats(data.stats);
+            buildEvents(data.events);
+            document.querySelectorAll('.mp-year-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.year === year);
+            });
+        }
+
+        /* تعویض سال */
+        async function switchYear(year) {
+            if (year === currentYear || isTransitioning) return;
+            isTransitioning = true;
+            const body = document.getElementById('modalBody');
+            body.classList.add('transitioning');
+            await new Promise(r => setTimeout(r, 350));
+            currentYear = year;
+            renderContent(year);
+            document.getElementById('modalScroll').scrollTop = 0;
+            document.getElementById('scrollProgress').style.width = '0%';
+            body.classList.remove('transitioning');
+            isTransitioning = false;
+        }
+
+        /* باز کردن مودال */
+        function openStoryModal() {
+            const modal = document.getElementById('storyModal');
+            buildYearTabs();
+            renderContent(currentYear);
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('modalScroll').scrollTop = 0;
+            document.getElementById('scrollProgress').style.width = '0%';
+        }
+
+        /* بستن مودال */
+        function closeStoryModal() {
+            document.getElementById('storyModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        /* لایت‌باکس */
+        function openLightbox(index) {
+            const data = storyData[currentYear];
+            if (!data || !data.images.length) return;
+            lightboxOpen = true;
+            updateLightbox(index);
+            document.getElementById('lightbox').classList.add('active');
+        }
+        function updateLightbox(index) {
+            const data = storyData[currentYear];
+            activeImageIndex = index;
+            document.getElementById('lightboxImage').src = data.images[index];
+            document.getElementById('lightboxCaption').textContent = data.title + ' — تصویر ' + toPersianNum(index + 1);
+            document.getElementById('lightboxCounter').textContent = toPersianNum(index + 1) + ' / ' + toPersianNum(data.images.length);
+            document.querySelectorAll('.mp-gallery-thumb').forEach((t, i) => {
+                t.classList.toggle('active', i === index);
+            });
+            setMainImage(data.images[index], true);
+        }
+        function closeLightbox() {
+            lightboxOpen = false;
+            document.getElementById('lightbox').classList.remove('active');
+        }
+        function lightboxPrev() {
+            const data = storyData[currentYear];
+            updateLightbox((activeImageIndex - 1 + data.images.length) % data.images.length);
+        }
+        function lightboxNext() {
+            const data = storyData[currentYear];
+            updateLightbox((activeImageIndex + 1) % data.images.length);
+        }
+
+        /* رویدادها */
+       document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('storyModal');
+    const modalScroll = document.getElementById('modalScroll');
+
+    document.getElementById('openModalBtn')?.addEventListener('click', openStoryModal);
+    document.getElementById('modalCloseBtn')?.addEventListener('click', closeStoryModal);
+
+    modal?.addEventListener('click', e => {
+        if (e.target === modal) closeStoryModal();
+    });
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+            if (lightboxOpen) closeLightbox();
+            else if (modal?.classList.contains('active')) closeStoryModal();
+        }
+
+        if (lightboxOpen && e.key === 'ArrowRight') lightboxNext();
+        if (lightboxOpen && e.key === 'ArrowLeft') lightboxPrev();
+    });
+
+    modalScroll?.addEventListener('scroll', () => {
+        const st = modalScroll.scrollTop;
+        const sh = modalScroll.scrollHeight - modalScroll.clientHeight;
+        const pct = sh > 0 ? (st / sh) * 100 : 0;
+
+        const progress = document.getElementById('scrollProgress');
+        if (progress) progress.style.width = pct + '%';
+    });
+
+    document.getElementById('imageOverlay')?.addEventListener('click', () => openLightbox(activeImageIndex));
+    document.getElementById('lightboxClose')?.addEventListener('click', closeLightbox);
+
+    const lightbox = document.getElementById('lightbox');
+
+    lightbox?.addEventListener('click', e => {
+        if (e.target === lightbox) closeLightbox();
+    });
+
+    document.getElementById('lightboxPrev')?.addEventListener('click', lightboxPrev);
+    document.getElementById('lightboxNext')?.addEventListener('click', lightboxNext);
+
+    let touchStartX = 0;
+
+    lightbox?.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    lightbox?.addEventListener('touchend', e => {
+        const diff = e.changedTouches[0].screenX - touchStartX;
+        if (Math.abs(diff) > 50) {
+            if (diff > 0) lightboxPrev();
+            else lightboxNext();
+        }
+    }, { passive: true });
+});
+
+
+
+        document.querySelectorAll('.openModalBtn').forEach(btn => {
+    btn.addEventListener('click', function () {
+        currentYear = this.dataset.year;
+        openStoryModal();
+    });
+});
+
+
+document.querySelectorAll('.modalCloseBtn').forEach(btn => {
+    btn.addEventListener('click', closeStoryModal);
+});
+    </script>
+
+
+
+
+
+</body>
+</html>
