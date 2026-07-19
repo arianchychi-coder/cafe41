@@ -2798,7 +2798,7 @@ html {
 @media (max-width: 480px) {
     .eco2-heading { font-size: clamp(1.5rem, 8vw, 2rem); }
     .eco2-desc { font-size: 0.92rem; }
-    .eco2-card { padding: 1.6rem 1.2rem; }
+    .eco2-card { padding: 5rem 1.2rem; }
     .eco2-card-ttl { font-size: 1.2rem; }
     .eco2-card-sub { font-size: 1rem; }
     .eco2-list li { font-size: 1rem; }

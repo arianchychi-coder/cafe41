@@ -1071,7 +1071,6 @@ body {
 .hero-bg > div{
     display:flex !important;
     flex-direction:column !important;
-    
 }
 
 .hero-bg .text-right{
@@ -1098,6 +1097,7 @@ body {
 
 .hero-bg h1{
     font-size:34px !important;
+        padding-top: 3rem;
 }
 
 .hero-bg p{

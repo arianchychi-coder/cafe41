@@ -5322,7 +5322,18 @@
         max-width: 100% !important;
         text-align: center !important;
         margin: 0 auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-direction: column !important;
     }
+
+    .eco-header .eco-desc{
+        padding-right: 5rem !important;
+    }
+
+
+    
    
     .mine .cardinfo {
         flex-wrap: wrap !important;
