@@ -534,7 +534,7 @@
             .mp-stat-value { font-size: 1.05rem; }
         }
 </style>
-<body class="bg-zinc-950 text-white overflow-x-hidden">
+<body class="bg-zinc-950 text-white overflow-x-hidden overflow-y-auto">
     <!-- Navbar -->
 
      <nav class="navbar" id="navbar">
@@ -1472,8 +1472,12 @@
         <div class="footer-glow footer-glow-2"></div>
     </footer>
 
+      <a href="#consultation" class="mobile-fab">
+    <i class="bi bi-headset" style="font-size: 1.5rem;display: flex;align-items: center;justify-content: center;"></i>
+</a>
 
-    <section class="consultation">
+
+    <section class="consultation" id="consultation">
     <div class="content" style="display: flex;align-items: center;justify-content: center;">
 
         <div class="title-box" style="padding: 0 1rem;">
@@ -2096,7 +2100,11 @@ document.querySelectorAll('.modalCloseBtn').forEach(btn => {
     </script>
 
 
-
+<script>
+document.documentElement.style.overflowY = "auto";
+document.body.style.overflowY = "auto";
+document.body.classList.remove("overflow-hidden");
+</script>
 
 
 </body>

@@ -1,4 +1,4 @@
-        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+     @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
 :root {
     --primary-color: #d89623;
     --primary-light: #f0b84a;
@@ -2628,3 +2628,207 @@ button{
     }
 
 }
+
+/* ==========================================================================
+   RESPONSIVE LAYER — Added for full mobile/tablet support
+   نکته: تمام قوانین این بخش فقط داخل @media (max-width: ...) هستند،
+   بنابراین نسخه دسکتاپ (1024px به بالا) دقیقاً دست‌نخورده باقی می‌ماند.
+   ترتیب: از عریض به باریک (1200 → 320)
+   ========================================================================== */
+
+/* -------------------------------------------------
+   0) ایمنی سراسری - جلوگیری از اسکرول افقی و باگ ارتفاع ثابت body
+   ------------------------------------------------- */
+html {
+    overflow-x: hidden;
+}
+
+@media (max-width: 1023px) {
+    body {
+        /* در دسکتاپ body{height:590vh} برای چیدمان تایید شده تنظیم شده،
+           اما در موبایل/تبلت محتوا به‌صورت عمودی جمع‌تر می‌شود و این ارتفاع
+           ثابت باعث بریده‌شدن یا فضای خالی اضافه می‌شد. */
+        height: auto !important;
+        overflow-x: hidden;
+        padding: 0 !important;
+    }
+
+    /* رفع باگ کادرهای توضیحات باز/بسته‌شونده (توگل‌ها):
+       این عناصر در HTML مقدار height:6rem ثابت به‌صورت inline دارند که با
+       متن‌های بلندتر فارسی روی صفحه باریک، باعث بریده‌شدن (کلیپ‌شدن) متن
+       می‌شد. با !important این مشکل فقط در ریسپانسیو اصلاح می‌شود. */
+    #toggleInfo, #toggleInfo2, #toggleInfo3, #toggleInfo4,
+    #toggleInfowoman, #toggleInfowoman2, #toggleInfowoman3 {
+        height: auto !important;
+        min-height: 5.5rem;
+    }
+    #toggleInfo.show, #toggleInfo2.show, #toggleInfo3.show, #toggleInfo4.show,
+    #toggleInfowoman.show, #toggleInfowoman2.show, #toggleInfowoman3.show {
+        max-height: 320px !important;
+    }
+}
+
+/* -------------------------------------------------
+   1) هدر و تایپوگرافی عمومی هیرو (Hero)
+   ------------------------------------------------- */
+@media (max-width: 1200px) {
+    h1 { font-size: clamp(2.6rem, 6vw, 5rem); max-width: 100%; }
+
+    header {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+        gap: 20px;
+    }
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 1023px) {
+    section.hero {
+        margin-top: 6rem !important;
+        padding: 30px 20px;
+    }
+    .line1 { font-size: clamp(2.4rem, 9vw, 4rem); }
+    .line2 { font-size: clamp(1.7rem, 6vw, 3rem); }
+    .content p { max-width: 100%; }
+    .hero-image { margin-top: 30px; border-width: 8px; }
+    .hero-image img { height: auto; max-height: 320px; }
+
+    section.hero > button {
+        /* دکمه هیرو با right:107rem inline کاملاً خارج از صفحه قرار می‌گرفت؛
+           در موبایل آن را داخل جریان عادی صفحه برمی‌گردانیم بدون تغییر دسکتاپ */
+        position: static !important;
+        right: auto !important;
+        display: block;
+        margin-top: 24px;
+        width: fit-content;
+    }
+}
+
+@media (max-width: 480px) {
+    .line1 { font-size: clamp(2rem, 11vw, 2.6rem); }
+    .line2 { font-size: clamp(1.4rem, 7vw, 1.9rem); }
+    button { padding: 14px 24px; font-size: 15px; }
+}
+
+/* -------------------------------------------------
+   2) بخش «داستان ما» / تایم‌لاین / آمار (about-*)
+   ------------------------------------------------- */
+@media (max-width: 1023px) {
+    .container { padding: 60px 24px; }
+    .smart-pattern { display: none; } /* پترن تزئینی پس‌زمینه، باعث برآمدگی افقی می‌شد */
+}
+
+@media (max-width: 768px) {
+    .container { padding: 48px 18px; }
+    .subtitle { font-size: 1.4rem; }
+    .title { font-size: clamp(1.8rem, 6vw, 2.5rem); margin-bottom: 24px; }
+    .description-box p { font-size: 1rem; text-align: right; }
+    .about-top { gap: 36px; margin-bottom: 60px; }
+    .timeline-card { width: 100%; max-width: 260px; }
+}
+
+@media (max-width: 420px) {
+    .timeline-card { width: 100%; max-width: 210px; padding: 10px 14px; }
+    .card-text { font-size: 0.82rem; }
+    .timeline-year { font-size: 1.05rem; width: 42px; }
+    .stat-card { padding: 22px 18px; }
+    .stat-num { font-size: 1.9rem; }
+}
+
+/* -------------------------------------------------
+   3) پروفایل بنیان‌گذار و مدیرعامل (cf-* / ceo-*)
+   ------------------------------------------------- */
+@media (max-width: 1023px) {
+    .calanaci2, .calanacidouther {
+        padding: 60px 20px;
+    }
+    .cf-profile-container, .ceo-profile-container {
+        padding: 0;
+    }
+}
+
+@media (max-width: 992px) {
+    .cf-content-section, .ceo-content-section {
+        min-width: 0;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .calanaci2, .calanacidouther {
+        padding: 40px 16px;
+    }
+    .cf-main-title, .ceo-main-title {
+        font-size: clamp(1.4rem, 7vw, 1.8rem);
+    }
+    .cf-description, .ceo-description {
+        font-size: 0.95rem;
+    }
+    .cf-image-section, .ceo-image-section {
+        width: 100%;
+        max-width: 260px;
+        height: 340px;
+    }
+    .cf-stats-section, .ceo-stats-section {
+        width: 100%;
+    }
+    .cf-stat-item, .ceo-stat-item {
+        min-width: 45%;
+    }
+    .cf-features-list li span, .ceo-features-list li span {
+        font-size: 0.85rem !important;
+    }
+}
+
+/* -------------------------------------------------
+   4) اکوسیستم کافه معدن (eco2-*)
+   ------------------------------------------------- */
+@media (max-width: 1023px) {
+    .eco2 { padding: 0 20px; }
+    .eco2-root { padding-top: 3rem; }
+}
+
+@media (max-width: 480px) {
+    .eco2-heading { font-size: clamp(1.5rem, 8vw, 2rem); }
+    .eco2-desc { font-size: 0.92rem; }
+    .eco2-card { padding: 1.6rem 1.2rem; }
+    .eco2-card-ttl { font-size: 1.2rem; }
+    .eco2-card-sub { font-size: 1rem; }
+    .eco2-list li { font-size: 1rem; }
+    .eco2-features { gap: 1rem; }
+    .eco2-feat { padding: 1.1rem; }
+    .eco2-logo-wrap {
+        top: 1rem;
+        left: 1rem;
+    }
+    .eco2-logo-box { padding: 0.5rem 1rem; }
+    .eco2-logo-txt { font-size: 0.75rem; }
+}
+
+/* -------------------------------------------------
+   5) همکاران ما (partners)
+   ------------------------------------------------- */
+@media (max-width: 480px) {
+    .partners { padding: 60px 0; }
+    .partners-title { font-size: 26px; margin-bottom: 36px; }
+    .partner-card { width: 120px; height: 120px; border-radius: 16px; }
+    .partner-card img { width: 80px; max-height: 80px; }
+    .partners-grid { gap: 16px; }
+}
+
+/* -------------------------------------------------
+   6) دسترس‌پذیری لمسی - دکمه‌ها و لینک‌های قابل کلیک روی موبایل
+   ------------------------------------------------- */
+@media (max-width: 768px) {
+    .btn-ecosystem, .consult-banner__btn, .pt-btn, button {
+        min-height: 44px;
+    }
+}
+

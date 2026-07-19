@@ -1,4 +1,3 @@
-        /* ===== RESET & BASE ===== */
 *,
 *::before,
 *::after {
@@ -17,7 +16,12 @@ body {
     color: #ffffff;
     overflow-x: hidden;
     direction: rtl;
-    height: 312vh;
+    /* BUGFIX: a hard-coded "height: 312vh" only matched the desktop 3-column
+       layout's content height by coincidence. On any layout where content is
+       taller (e.g. cards stacking to 1 column on mobile), the box no longer
+       matched its content. min-height keeps desktop pixel-identical while
+       letting the page grow naturally on smaller screens. */
+    min-height: 100vh;
 }
 
 /* ===== HERO SECTION ===== */
@@ -358,7 +362,11 @@ body {
 }
 
 .card-image-overlay img{
-    width:80rem;
+    /* BUGFIX: width was hard-coded to "80rem" (1280px), forcing a fixed pixel
+       width inside a fluid card at every screen size instead of filling the
+       overlay. Changed to 100% so it always covers its container correctly,
+       on desktop and on every smaller breakpoint. */
+    width:100%;
     height:100% !important;
     object-fit:cover;
 }
@@ -475,6 +483,17 @@ body {
 .article-card[data-index="1"] { transition-delay: 0.25s; }
 .article-card[data-index="2"] { transition-delay: 0.4s; }
 
+
+/* BUGFIX: the wrapping <section> around .filter-section previously had a
+   fixed inline "height: 2rem", far shorter than the real height of the
+   search/filter bar inside it. That made the filter bar visually overlap the
+   article cards section right below it on every screen size (a layout bug,
+   not a responsive-only issue). Giving the section natural padding instead
+   of a fixed height fixes the overlap while keeping the same background and
+   overall visual rhythm as the rest of the page. */
+.filter-outer-section {
+    padding: 40px 20px;
+}
 
 .filter-section {
     width: 100%;
@@ -1139,3 +1158,288 @@ body.modal-open .article-card {
     margin: 0 auto;
     
 }
+
+/* =========================================================================
+   RESPONSIVE ENHANCEMENTS — صفحه مقالات
+   نکته: هدر و فوتر قبلاً ریسپانس شده‌اند و در این بخش دست نمی‌خورند.
+   دسکتاپ (1024px به بالا) دقیقاً بدون تغییر باقی می‌ماند؛ این بخش فقط
+   برای صفحه‌نمایش‌های کوچک‌تر رفتار می‌افزاید و از پایین به بالا
+   (small → large) مرتب شده است.
+   ========================================================================= */
+
+/* ----- Safety net: prevent hero/article/modal media from ever forcing horizontal scroll -----
+   (scoped to this page's sections only — nav & footer are already responsive
+   and are intentionally left untouched) */
+.hero-section img, .hero-section svg,
+.articles-section img, .articles-section svg,
+.modal-content img, .modal-content video,
+.consultation img, .consultation svg {
+    max-width: 100%;
+}
+.card-image,
+.card-image-overlay img,
+.card-image-overlay video {
+    width: 100%;
+    height: 100%; /* keep card thumbnails filling their fixed-height wrapper */
+}
+
+/* ----- Extra small phones (≤360px): 320 / 360 ----- */
+@media (max-width: 360px) {
+    .hero-title {
+        font-size: clamp(30px, 9vw, 38px);
+    }
+
+    .hero-description {
+        font-size: 13px;
+    }
+
+    .filter-outer-section {
+        padding: 24px 12px;
+    }
+
+    .filter-container {
+        padding: 12px;
+        border-radius: 14px;
+    }
+
+    .search-input {
+        padding: 10px 38px 10px 34px;
+        font-size: 13px;
+    }
+
+    .all-articles-btn span {
+        font-size: 12px;
+    }
+
+    .articles-section {
+        padding: 48px 12px;
+    }
+
+    .card-content {
+        padding: 16px;
+    }
+
+    .card-title {
+        font-size: 15px;
+    }
+
+    .card-description {
+        font-size: 0.85rem;
+    }
+}
+
+/* ----- Small phones: 375 / 390 / 412 / 430 ----- */
+@media (min-width: 361px) and (max-width: 480px) {
+    .filter-outer-section {
+        padding: 28px 14px;
+    }
+
+    .articles-section {
+        padding: 56px 14px;
+    }
+
+    .card-content {
+        padding: 18px;
+    }
+
+    .card-description {
+        font-size: 0.95rem;
+    }
+}
+
+/* ----- Large phones / small phablets: 480–576 ----- */
+@media (max-width: 576px) {
+    .hero-breadcrumb,
+    .breadcrumb-current,
+    .breadcrumb-link {
+        font-size: 12px;
+    }
+
+    .card-image-wrapper {
+        height: 190px;
+    }
+
+    .card-date {
+        font-size: 0.8rem;
+    }
+
+    .card-stats {
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+
+    .modal-content {
+        width: 92%;
+        padding: 12px;
+    }
+
+    .modal-close {
+        top: -36px;
+        right: 0;
+        bottom: auto;
+        font-size: 30px;
+    }
+}
+
+/* ----- Phones / small tablets: up to 600 / 640 (existing 640 stacking kept, refined further) ----- */
+@media (max-width: 640px) {
+    .card-description {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+
+    .card-stats {
+        gap: 16px;
+    }
+}
+
+/* ----- Tablets: 768–1023 (covers 768 / 820 / 853 / 912 / 1024 edge) -----
+   The existing @media (max-width: 992px) already switches the grid to
+   2 columns; here we only tune spacing so the taller fixed-height image
+   doesn't feel oversized next to a narrower 2-column card. */
+@media (min-width: 641px) and (max-width: 1023px) {
+    .card-image-wrapper {
+        height: 240px;
+    }
+
+    .articles-section {
+        padding: 64px 24px;
+    }
+
+    .card-description {
+        font-size: 1.1rem;
+    }
+}
+
+/* ----- Consultation banner: stack on tablet/mobile ----- */
+@media (max-width: 768px) {
+    .consultation .content {
+        flex-direction: column;
+        gap: 24px;
+        text-align: center;
+        padding: 32px 16px;
+    }
+
+    .consultation .title-box {
+        text-align: center;
+    }
+
+    .consult-banner__form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .consult-banner__field {
+        width: 100%;
+    }
+
+    .consult-banner__field input {
+        width: 100%;
+    }
+
+    .consult-banner__btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ----- Dropdown menu: never overflow narrow viewports ----- */
+@media (max-width: 480px) {
+    .dropdown-menu {
+        min-width: 200px;
+        max-width: calc(100vw - 32px);
+        right: 0;
+        left: auto;
+    }
+}
+
+/* ----- Touch-friendly tap targets on any touch-capable / small viewport ----- */
+@media (max-width: 768px) {
+    .all-articles-btn,
+    .search-input,
+    .consult-banner__btn,
+    .tab-link {
+        min-height: 44px;
+    }
+
+    /* clear-btn stays a small circle, but its invisible tap area grows via padding-safe sizing */
+    .clear-btn {
+        width: 32px;
+        height: 32px;
+    }
+}
+/* =========================================================
+   اصلاحات منوی کشویی (Dropdown) برای موبایل و دسکتاپ
+   ========================================================= */
+/* حالت پیش‌فرض: بسته */
+.dropdown-menu {
+    /* اطمینان از اینکه transition به درستی کار می‌کند */
+    transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* نمایش منو با هاور (فقط دسکتاپ) */
+@media (min-width: 769px) {
+    .dropdown:hover > .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+        pointer-events: auto;
+    }
+}
+
+/* نمایش منو با کلاس (مخصوص موبایل و کنترل JS) */
+.dropdown.dropdown-open > .dropdown-menu {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) scale(1) !important;
+    pointer-events: auto !important;
+}
+
+/* غیرفعال کردن هور چسبنده در موبایل */
+@media (max-width: 768px) {
+    .dropdown:hover > .dropdown-menu {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+}
+
+/* =========================================================
+   استایل پیام "موردی یافت نشد" (No Results)
+   ========================================================= */
+.no-results {
+    display: none; /* پیش‌فرض مخفی */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    grid-column: 1 / -1; /* اشغال تمام عرض گرید */
+    color: #888;
+    text-align: center;
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+.no-results svg {
+    color: #D4A017;
+    margin-bottom: 16px;
+    opacity: 0.6;
+}
+
+.no-results p {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* =========================================================
+   انیمیشن نرم برای دکمه Clear
+   ========================================================= */
+.clear-btn {
+    /* اطمینان از اینکه ترنزیشن قبلی شما حفظ می‌شود */
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+
+

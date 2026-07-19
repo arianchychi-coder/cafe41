@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +9,9 @@
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.0.0/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-<title>Engineering Landing</title>
-<link rel="stylesheet" href="./css/aboutus.css">
+<title>درباره ما - کافه معدن</title>
+<link rel="stylesheet" href="css/aboutus.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body style="background: #0a0a0a;">
 
@@ -48,12 +49,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 }
 </style>
 
+
 <nav class="navbar" id="navbar">
         <div class="navbar-overlay"></div>
         <div class="container nav-container">
             
             <!-- Logo Section -->
-            <div class="nav-logo" style="padding: 0 1rem !important;">
+            <div class="nav-logo">
                 <div class="logo-wrapper">
                     <div style="position: relative;top: .3rem;">
                         <img src="images/Asset 1.png" style="object-fit: cover;width: 50px;height: 70px;" alt="">
@@ -74,6 +76,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                         <span class="link-underline"></span>
                     </a>
                 </li>
+                
                 <li class="nav-item">
                     <a href="khadamat.html" style="font-size: 1.2rem;" class="nav-link">
                         <span class="link-text">خدمات</span>
@@ -86,9 +89,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                         <span class="link-underline"></span>
                     </a>
                 </li>
-                
+               
                 <li class="nav-item">
-                    <a href="#about" style="font-size: 1.2rem;" class="nav-link active">
+                    <a href="aboutus.html" style="font-size: 1.2rem;" class="nav-link active">
                         <span class="link-text">درباره ما</span>
                         <span class="link-underline"></span>
                     </a>
@@ -99,8 +102,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                         <span class="link-underline"></span>
                     </a>
                 </li>
-
-                 <li class="nav-item">
+                <li class="nav-item">
                     <a href="storyus.html" style="font-size: 1.2rem;" class="nav-link">
                         <span class="link-text">داستان ما</span>
                         <span class="link-underline"></span>
@@ -109,7 +111,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
             </ul>
 
             <!-- Action Buttons -->
-            <div class="nav-actions" style="padding: 0 1rem !important;">
+            <div class="nav-actions">
                 <a href="#" style="font-size: 1.1rem;" class="btn-ecosystem">
                     <span class="btn-text">دریافت مشاوره تخصصی</span>
                     <span class="btn-icon">
@@ -117,7 +119,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                     </span>
                     <span class="btn-shine"></span>
                 </a>
-                
                 
                 <button class="hamburger" id="hamburger" aria-label="منو">
                     <span class="hamburger-line"></span>
@@ -161,18 +162,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 
   <!-- Background Image with Overlay -->
-    <!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>درباره ما - کافه معدن</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-</head>
-<body>
-
-    <!-- Background Image with Overlay -->
     <div class="aboutus" style="background-color: #F1f1f1;">
         <div class="bg-image"></div>
     <div class="bg-overlay "></div>
@@ -429,10 +418,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
     </div>
     </div>
-
-</body>
-</html>
-
 
 <section class="calanaci2" style="background-color: black;display: flex;align-items: center;justify-content: center;">
      <div class="cf-profile-container">
@@ -1007,7 +992,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         <div class="footer-glow footer-glow-2"></div>
     </footer>
 
-    <section class="consultation">
+
+    
+    <a href="#consultation" class="mobile-fab">
+    <i class="bi bi-headset" style="font-size: 1.5rem;display: flex;align-items: center;justify-content: center;"></i>
+</a>
+
+
+
+    <section class="consultation" id="consultation">
     <div class="content" style="display: flex;align-items: center;justify-content: center;">
 
         <div class="title-box" style="padding: 0 1rem;">
@@ -1135,19 +1128,8 @@ document.querySelectorAll(".timeline-item").forEach(item => {
 });*/
 </script>
 
- <script src="./js/calanaci.js"></script>
-    <script src="./js/eco2.js"></script>
-<script src="./js/abooutus.js"></script>
+ <script src="./js/aboutus.js"></script>
 <script src="./js/footer.js"></script>
-<script src="./js/articels2.js"></script>
-<script src="./js/articels.js"></script>
-<script src="./js/faq.js"></script>
-<script src="./js/research.js"></script>
-<script src="./js/servis.js"></script>
-<script src="./js/eco.js"></script>
 <script src="./js/navbar.js"></script>
-<script src="./js/card.js"></script>    
-<script src="./js/search.js"></script>
-<script src="./js/main.js"></script>
 </body>
 </html>

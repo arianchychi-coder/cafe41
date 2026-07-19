@@ -954,3 +954,363 @@ body {
     z-index: 5;
     cursor: pointer;
 }
+
+
+
+
+
+
+
+
+/* ===========================
+   HERO RESPONSIVE
+=========================== */
+
+.hero-bg{
+    min-height:100vh !important;
+    display:flex !important;
+    align-items:center !important;
+    background-position:center !important;
+    background-size:cover !important;
+    background-repeat:no-repeat !important;
+    position:relative !important;
+    overflow:hidden !important;
+    padding-top:90px !important;
+}
+
+.hero-bg > div{
+    width:100% !important;
+    max-width:1280px !important;
+    margin:auto !important;
+    padding:0 40px !important;
+    display:grid !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:60px !important;
+    align-items:center !important;
+}
+
+.hero-bg .quote-box{
+    max-width:320px !important;
+    width:100% !important;
+    padding:40px !important;
+}
+
+.hero-bg h1{
+    font-size:72px !important;
+    line-height:1.1 !important;
+}
+
+.hero-bg p{
+    font-size:20px !important;
+    line-height:2 !important;
+}
+
+.hero-bg button{
+    padding:16px 32px !important;
+    font-size:18px !important;
+}
+
+.hero-bg .truck{
+    right:40px !important;
+    bottom:80px !important;
+}
+
+
+/* ===========================
+   Tablet
+=========================== */
+
+@media (max-width:992px){
+
+.hero-bg > div{
+    grid-template-columns:1fr !important;
+    gap:40px !important;
+    text-align:center !important;
+    padding:0 30px !important;
+}
+
+.hero-bg .quote-box{
+    margin:auto !important;
+    max-width:500px !important;
+}
+
+.hero-bg .text-right{
+    text-align:center !important;
+}
+
+.hero-bg p{
+    margin:auto !important;
+}
+
+.hero-bg .flex.flex-wrap{
+    justify-content:center !important;
+}
+
+.hero-bg .mt-16{
+    justify-content:center !important;
+}
+
+.hero-bg h1{
+    font-size:54px !important;
+}
+
+.hero-bg .truck{
+    display:none !important;
+}
+
+}
+
+
+/* ===========================
+   Mobile
+=========================== */
+
+/* موبایل */
+@media (max-width:768px){
+
+.hero-bg > div{
+    display:flex !important;
+    flex-direction:column !important;
+    
+}
+
+.hero-bg .text-right{
+    order:1 !important;
+}
+
+.hero-bg .quote-box{
+    order:2 !important;
+    margin-top:30px !important;
+}
+
+}
+
+
+/* ===========================
+   Small Mobile
+=========================== */
+
+@media (max-width:480px){
+
+.hero-bg > div{
+    padding:0 15px !important;
+}
+
+.hero-bg h1{
+    font-size:34px !important;
+}
+
+.hero-bg p{
+    font-size:15px !important;
+}
+
+.hero-bg .quote-box{
+    padding:18px !important;
+}
+
+.hero-bg button{
+    font-size:15px !important;
+}
+
+}
+
+
+
+
+/* ===========================
+   STATS RESPONSIVE
+=========================== */
+
+#stats{
+    padding:80px 0 !important;
+}
+
+#stats .max-w-7xl{
+    max-width:1280px !important;
+    margin:auto !important;
+    padding:0 24px !important;
+}
+
+#stats h2{
+    font-size:42px !important;
+    line-height:1.3 !important;
+}
+
+#stats .grid{
+    gap:30px !important;
+}
+
+#stats .stat-card{
+    padding:40px 30px !important;
+    border-radius:24px !important;
+    min-height:320px !important;
+
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:center !important;
+}
+
+#stats .stat-card i{
+    font-size:3rem !important;
+}
+
+#stats [data-count]{
+    font-size:58px !important;
+    line-height:1 !important;
+}
+
+#stats .text-lg{
+    font-size:18px !important;
+}
+
+
+/* ===========================
+   Tablet
+=========================== */
+
+@media (max-width:992px){
+
+#stats{
+    padding:70px 0 !important;
+}
+
+#stats h2{
+    font-size:34px !important;
+}
+
+#stats .grid{
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:20px !important;
+}
+
+#stats .stat-card{
+    min-height:270px !important;
+    padding:30px 20px !important;
+}
+
+#stats [data-count]{
+    font-size:48px !important;
+}
+
+#stats .text-lg{
+    font-size:16px !important;
+}
+
+#stats .absolute{
+    font-size:80px !important;
+}
+
+}
+
+
+/* ===========================
+   Mobile
+=========================== */
+
+/* ===========================
+   Mobile Design
+=========================== */
+
+/* ===========================
+   Mobile (2 Columns)
+=========================== */
+
+@media (max-width:768px){
+
+#stats{
+    padding:70px 0 !important;
+}
+
+#stats .max-w-7xl{
+    padding:0 16px !important;
+}
+
+#stats .grid{
+    display:grid !important;
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:14px !important;
+}
+
+#stats .stat-card{
+    padding:20px 12px !important;
+    min-height:190px !important;
+    border-radius:20px !important;
+}
+
+#stats .stat-card i{
+    font-size:2rem !important;
+}
+
+#stats [data-count]{
+    font-size:34px !important;
+    margin:12px 0 8px !important;
+}
+
+#stats .text-lg{
+    font-size:13px !important;
+    line-height:1.7 !important;
+}
+
+#stats .h-1{
+    width:45px !important;
+    margin-top:14px !important;
+}
+
+#stats .absolute{
+    font-size:48px !important;
+    top:-8px !important;
+    right:-8px !important;
+    opacity:.08 !important;
+}
+
+}
+
+
+/* ===========================
+   Small Mobile
+=========================== */
+
+@media (max-width:480px){
+
+#stats{
+    padding:50px 0 !important;
+}
+
+#stats h2{
+    font-size:24px !important;
+}
+
+#stats .stat-card{
+    padding:24px 16px !important;
+}
+
+#stats [data-count]{
+    font-size:36px !important;
+}
+
+#stats .text-lg{
+    font-size:14px !important;
+}
+
+#stats .stat-card i{
+    font-size:2rem !important;
+}
+
+#stats .absolute{
+    font-size:48px !important;
+}
+
+}
+
+
+* {
+    touch-action: auto !important;
+}
+
+html, body {
+    overflow: visible !important;
+}
+
+body {
+    overflow-y: scroll !important;
+}
